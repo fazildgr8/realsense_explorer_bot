@@ -1,0 +1,23 @@
+
+  <launch>
+
+  <arg name="gui" default="true" />
+  <arg name="model" default="$(find realsense_explorer_description)/urdf/realsense_explorer.urdf.xacro"/>
+  <arg name="rvizconfig" default="$(find realsense_explorer_description)/rviz/urdf.rviz" />
+  
+  <param name="robot_description" textfile="$(find realsense_explorer_description)/urdf/realsense_explorer.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" >
+    <rosparam param="source_list">["joint_states_ct"]</rosparam>
+</node>
+
+
+  <remap from="/joint_states" to="/realsense_explorer_description/joint_states" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+
+    
+  </launch>
