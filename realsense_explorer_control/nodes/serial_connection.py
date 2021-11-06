@@ -11,7 +11,10 @@ from sensor_msgs.msg import Imu
 from std_msgs.msg import Int32
 
 
-connection = serial.Serial(port="/dev/ttyACM0", baudrate=115200)
+port = rospy.get_param("~port","/dev/ttyACM0")
+baudrate = rospy.get_param("~baudrate",115200)
+
+connection = serial.Serial(port=port, baudrate=baudrate)
 connection.reset_input_buffer()
 
 global l_speed, r_speed
