@@ -17,6 +17,10 @@ imu_frame = rospy.get_param("~imu_frame",'base_link')
 
 connection = serial.Serial(port=port, baudrate=baudrate)
 connection.reset_input_buffer()
+if(connection.bytesize>5):
+    data = connection.readline().decode("utf-8")
+else:
+    rospy.logwarn('Error Readind Serial Data')
 
 global l_speed, r_speed
 r_speed = 0
@@ -46,8 +50,8 @@ def data_parser(data_list):
 
     return left_ticks, right_ticks, imu_array
 
-def receive_wheel_speeds(l_speed,r_speed):
-    send_string = "/"+str(l_speed)+"/"+str(r_speed)+"\n"
+def send_wheel_speeds(l_speed,r_speed):
+    send_string = str(l_speed)+"/"+str(r_speed)+"\n"
     connection.write(send_string.encode('utf-8'))
 
 def imu_message_publish(imu_array):
@@ -92,6 +96,7 @@ def callback_right_desired_rate(msg):
 
 if __name__ == '__main__':
     rospy.init_node('serial_connection_RobotHW')
+    rospy.loginfo('Starting RobotHW Serial Connection')
     rospy.Subscriber("lwheel_desired_rate", Int32, callback_left_desired_rate)
     rospy.Subscriber("rwheel_desired_rate", Int32, callback_right_desired_rate)
 
@@ -103,6 +108,9 @@ if __name__ == '__main__':
             left_ticks, right_ticks, imu_array = data_parser(data_list)
             encoder_ticks_publish(left_ticks,right_ticks)
             imu_message_publish(imu_array)
-            receive_wheel_speeds(l_speed,r_speed)
+            send_wheel_speeds(l_speed,r_speed)
+        else:
+            rospy.logwarn('Serial Message Error')
+            
 
     rospy.spin()

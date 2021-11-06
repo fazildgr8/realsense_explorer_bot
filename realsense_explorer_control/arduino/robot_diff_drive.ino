@@ -15,12 +15,16 @@ const int in4 = 5;
 
 const int interval = 25;
 
+int l_pwm = 0;
+int r_pwm = 0;
+
 MPU9250 mpu;
 
 void setup() {
   Serial.begin(115200);
   Wire.begin();
   delay(2000);
+  motor_stop();
 
   if (!mpu.setup(0x68)) {  // change to your own address
     while (1) {
@@ -39,13 +43,25 @@ void loop() {
       prev_ms = millis();
     }
   }
+  get_wheel_velocities();
+  set_motor_pwm();
+
 }
 
+void set_motor_pwm() {
+  analogWrite(enA, l_pwm);
+  analogWrite(enB, r_pwm);
+  
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
 
 void send_all_data() {
   int left_ticks = enc_A.read();
   int right_ticks = enc_B.read();
-  
+
   float imu_array[10];
 
   imu_array[0] = mpu.getAccX();
@@ -68,13 +84,50 @@ void send_all_data() {
   for (int i = 0; i < 10; i++) {
     main_str = main_str + "/" + imu_array[i];
   }
-  if(Serial.available() > 0) {
-    String velocities = Serial.readStringUntil('\n');
-    set_wheel_velocities(velocities);
-  }
+
   main_str = main_str + "/";
   Serial.println(main_str);
 }
 
 
-void set_wheel_velocities(String velocity){}
+int* velocity_string_parse(String velocities) {
+  velocities.remove(-2);
+  int piviot = velocities.indexOf("/");
+
+  String l_velocity = velocities;
+  l_velocity.remove(piviot);
+
+  String r_velocity = "";
+  int i = piviot + 1;
+  while (velocities[i]) {
+    r_velocity = r_velocity + velocities[i];
+    i = i + 1;
+  }
+
+  static int arr[2];
+  arr[0] = l_velocity.toInt();
+  arr[1] = r_velocity.toInt();
+
+  return arr;
+}
+
+void get_wheel_velocities() {
+  if (Serial.available() > 0) {
+    String velocities = Serial.readStringUntil('\n');
+    int* arr;
+    arr = velocity_string_parse(velocities);
+    l_pwm = arr[0];
+    r_pwm = arr[1];
+  }
+}
+
+void motor_stop() {
+
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
+
+  analogWrite(enA, 0);
+  analogWrite(enB, 0);
+}
