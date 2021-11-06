@@ -13,6 +13,7 @@ from std_msgs.msg import Int32
 
 port = rospy.get_param("~port","/dev/ttyACM0")
 baudrate = rospy.get_param("~baudrate",115200)
+imu_frame = rospy.get_param("~imu_frame",'base_link')
 
 connection = serial.Serial(port=port, baudrate=baudrate)
 connection.reset_input_buffer()
@@ -55,26 +56,26 @@ def imu_message_publish(imu_array):
     imu_msg.linear_acceleration.x = imu_array[0]
     imu_msg.linear_acceleration.y = imu_array[1]
     imu_msg.linear_acceleration.z = imu_array[2]
-    imu_msg.linear_acceleration_covariance = [1,0,0,
-                                              0,1,0,
-                                              0,0,1]
+    imu_msg.linear_acceleration_covariance = [-1,0,0,
+                                              0,0,0,
+                                              0,0,0]
 
     imu_msg.angular_velocity.x = imu_array[3]
     imu_msg.angular_velocity.y = imu_array[4]
     imu_msg.angular_velocity.z = imu_array[5]
-    imu_msg.angular_velocity_covariance = [1,0,0,
-                                           0,1,0,
-                                           0,0,1]
+    imu_msg.angular_velocity_covariance = [-1,0,0,
+                                           0,0,0,
+                                           0,0,0]
 
     imu_msg.orientation.x = imu_array[6]
     imu_msg.orientation.y = imu_array[7]
     imu_msg.orientation.z = imu_array[8]
     imu_msg.orientation.w = imu_array[9]
-    imu_msg.orientation_covariance = [1,0,0,
-                                      0,1,0,
-                                      0,0,1]
+    imu_msg.orientation_covariance = [-1,0,0,
+                                      0,0,0,
+                                      0,0,0]
 
-    imu_msg.header.frame_id = 'imu_frame'
+    imu_msg.header.frame_id = imu_frame
     # imu_msg.header.stamp = rospy.Time.from_sec(float(timestamp.strftime("%s.%f")))
 
     imu_pub = rospy.Publisher('robot_imu', Imu, queue_size=10)

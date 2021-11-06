@@ -27,6 +27,7 @@
   <node pkg="realsense_explorer_control" type="serial_connection.py" name="serial_connection_RobotHW">
       <param name="port" value="/dev/ttyACM0" />
       <param name="baudrate" value="115200" />
+      <param name="imu_frame" value="base_link" />
 
     </node>
 
