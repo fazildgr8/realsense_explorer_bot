@@ -1,10 +1,10 @@
 
   <launch>
 
-  <arg name="ticks_per_meter" value="10000" />
+  <arg name="ticks_per_meter" value="13000" />
   <arg name="wheel_separation" value="0.015" />
 
-  <!-- <node name="controller" pkg="diff_drive" type="diff_drive_controller"
+  <node name="controller" pkg="diff_drive" type="diff_drive_controller"
         output="screen">
     <rosparam subst_value="true">
       ticks_per_meter: $(arg ticks_per_meter)
@@ -13,7 +13,7 @@
       timeout: 1.0
     </rosparam>
     <remap from="cmd_vel" to="/robot/cmd_vel" />
-  </node> -->
+  </node>
   
   <node name="odom_publisher" pkg="diff_drive" type="diff_drive_odometry"
         output="screen">

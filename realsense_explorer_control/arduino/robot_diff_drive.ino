@@ -13,10 +13,13 @@ const int enB = 9;
 const int in3 = 4;
 const int in4 = 5;
 
-const int interval = 25;
+const float interval = 25; //millis
 
 int l_pwm = 0;
 int r_pwm = 0;
+
+int l_ticks_rate = 0;
+int r_ticks_rate = 0;
 
 MPU9250 mpu;
 
@@ -37,10 +40,20 @@ void setup() {
 void loop() {
 
   if (mpu.update()) {
+    int previousReading_left = enc_A.read();
+    int previousReading_right = enc_B.read();
+
     static uint32_t prev_ms = millis();
     if (millis() > prev_ms + interval) {
       send_all_data();
       prev_ms = millis();
+
+      int currentReading_left = enc_A.read();
+      int currentReading_right = enc_B.read();
+      l_ticks_rate = int((currentReading_left - previousReading_left) / (interval / 1000) );
+      r_ticks_rate = int((currentReading_right - previousReading_right) / (interval / 1000) );
+      previousReading_left = currentReading_left;
+      previousReading_right = currentReading_right;
     }
   }
   get_wheel_velocities();
@@ -50,8 +63,8 @@ void loop() {
 
 void set_motor_pwm() {
   analogWrite(enA, l_pwm);
-  analogWrite(enB, r_pwm);
-  
+  analogWrite(enB, l_pwm);
+
   digitalWrite(in1, LOW);
   digitalWrite(in2, HIGH);
   digitalWrite(in3, LOW);
@@ -76,6 +89,10 @@ void send_all_data() {
   imu_array[7] = mpu.getQuaternionY();
   imu_array[8] = mpu.getQuaternionZ();
   imu_array[9] = mpu.getQuaternionW();
+
+  imu_array[6] = l_ticks_rate;
+  imu_array[7] = r_ticks_rate;
+
   // Left_ticks, Right_ticks, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, QuX, QuY, QuZ, QuW
 
   String main_str = "";
