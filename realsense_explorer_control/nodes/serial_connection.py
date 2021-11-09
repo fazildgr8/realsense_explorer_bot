@@ -13,7 +13,7 @@ from std_msgs.msg import Int32
 
 port = rospy.get_param("~port","/dev/ttyACM0")
 baudrate = rospy.get_param("~baudrate",115200)
-imu_frame = rospy.get_param("~imu_frame",'base_link')
+imu_frame = rospy.get_param("~imu_frame",'imu_frame')
 
 connection = serial.Serial(port=port, baudrate=baudrate)
 connection.reset_input_buffer()

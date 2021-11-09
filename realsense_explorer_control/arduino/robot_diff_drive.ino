@@ -1,5 +1,5 @@
-#include "MPU9250.h" //https://www.arduino.cc/reference/en/libraries/mpu9250/
-#include <Encoder.h> //https://www.arduino.cc/reference/en/libraries/encoder/
+#include "MPU9250.h" // https://www.arduino.cc/reference/en/libraries/mpu9250/
+#include <Encoder.h> // https://www.arduino.cc/reference/en/libraries/encoder/
 
 // Motor Left connections
 Encoder enc_A(3, 12);
@@ -13,15 +13,24 @@ const int enB = 9;
 const int in3 = 4;
 const int in4 = 5;
 
-const float interval = 25; //millis
+double l_pwm = 0;
+double r_pwm = 0;
 
-int l_pwm = 0;
-int r_pwm = 0;
+double l_ticks_rate = 0;
+double r_ticks_rate = 0;
 
-int l_ticks_rate = 0;
-int r_ticks_rate = 0;
+double l_desired_rate = 0;
+double r_desired_rate = 0;
+
+int left_ticks = 0;
+int right_ticks = 0;
+
+int previousReading_left = 0;
+int previousReading_right = 0;
 
 MPU9250 mpu;
+
+const float interval = 25; //millis
 
 void setup() {
   Serial.begin(115200);
@@ -35,46 +44,64 @@ void setup() {
       delay(5000);
     }
   }
+
 }
+
 
 void loop() {
 
+  double tstart = millis();
+  read_encoder();
+
   if (mpu.update()) {
-    int previousReading_left = enc_A.read();
-    int previousReading_right = enc_B.read();
-
-    static uint32_t prev_ms = millis();
-    if (millis() > prev_ms + interval) {
-      send_all_data();
-      prev_ms = millis();
-
-      int currentReading_left = enc_A.read();
-      int currentReading_right = enc_B.read();
-      l_ticks_rate = int((currentReading_left - previousReading_left) / (interval / 1000) );
-      r_ticks_rate = int((currentReading_right - previousReading_right) / (interval / 1000) );
-      previousReading_left = currentReading_left;
-      previousReading_right = currentReading_right;
-    }
+    send_all_data();
   }
-  get_wheel_velocities();
-  set_motor_pwm();
 
+  get_desired_wheel_velocities();
+  calc_wheel_pwm();
+  set_motor_pwm();
+  
+  delay(50);
+  
+  
+  double tend = millis();
+  l_ticks_rate = (double)((left_ticks - previousReading_left)/(tend-tstart))*1000;
+  r_ticks_rate = (double)((right_ticks - previousReading_right)/(tend-tstart))*1000;
+
+  previousReading_left = left_ticks;
+  previousReading_right = right_ticks;
+
+}
+
+void read_encoder() {
+  left_ticks = enc_A.read();
+  right_ticks = enc_B.read();
 }
 
 void set_motor_pwm() {
-  analogWrite(enA, l_pwm);
-  analogWrite(enB, l_pwm);
 
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
+  if (l_pwm > 0) {
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    analogWrite(enA, int(l_pwm));
+  } else {
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    analogWrite(enA, int(abs(l_pwm)));
+  }
+
+  if (r_pwm > 0) {
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    analogWrite(enB, int(r_pwm));
+  } else {
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    analogWrite(enB, int(abs(r_pwm)));
+  }
 }
 
 void send_all_data() {
-  int left_ticks = enc_A.read();
-  int right_ticks = enc_B.read();
-
   float imu_array[10];
 
   imu_array[0] = mpu.getAccX();
@@ -89,9 +116,6 @@ void send_all_data() {
   imu_array[7] = mpu.getQuaternionY();
   imu_array[8] = mpu.getQuaternionZ();
   imu_array[9] = mpu.getQuaternionW();
-
-  imu_array[6] = l_ticks_rate;
-  imu_array[7] = r_ticks_rate;
 
   // Left_ticks, Right_ticks, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, QuX, QuY, QuZ, QuW
 
@@ -128,15 +152,52 @@ int* velocity_string_parse(String velocities) {
   return arr;
 }
 
-void get_wheel_velocities() {
+void get_desired_wheel_velocities() {
   if (Serial.available() > 0) {
     String velocities = Serial.readStringUntil('\n');
     int* arr;
     arr = velocity_string_parse(velocities);
-    l_pwm = arr[0];
-    r_pwm = arr[1];
+    l_desired_rate = arr[0];
+    r_desired_rate = arr[1];
   }
 }
+
+
+void calc_wheel_pwm() {
+
+  l_pwm = map(l_desired_rate, -3250, 3250, -255, 255);
+  r_pwm = map(r_desired_rate, -3250, 3250, -255, 255);
+
+  //  float l_err = l_desired_rate - l_ticks_rate;
+  //
+  //  if (abs(l_err) > 10) {
+  //
+  //    if (l_err > 0) {
+  //      l_pwm = l_pwm + map(l_err, -3250, 3250, -255, 255);
+  //    } else {
+  //      l_pwm = l_pwm - map(l_err, -3250, 3250, -255, 255);
+  //    }
+  //  }
+  //
+  //  float r_err = r_desired_rate - r_ticks_rate;
+  //  if (abs(r_err) > 10) {
+  //    if (l_err > 0) {
+  //      r_pwm = r_pwm + map(r_err, -3250, 3250, -255, 255);
+  //    }
+  //    else {
+  //      r_pwm = r_pwm - map(r_err, -3250, 3250, -255, 255);
+  //    }
+  //  }
+  //
+  //  if (l_desired_rate == 0) {
+  //    l_pwm = 0;
+  //  }
+  //  if (r_desired_rate == 0) {
+  //    r_pwm = 0;
+  //  }
+
+}
+
 
 void motor_stop() {
 
