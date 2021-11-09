@@ -1,5 +1,6 @@
 #include "MPU9250.h" // https://www.arduino.cc/reference/en/libraries/mpu9250/
 #include <Encoder.h> // https://www.arduino.cc/reference/en/libraries/encoder/
+//#include <PID_v1.h>  // https://github.com/br3ttb/Arduino-PID-Library
 
 // Motor Left connections
 Encoder enc_A(3, 12);
@@ -30,6 +31,13 @@ int previousReading_right = 0;
 
 MPU9250 mpu;
 
+//double kp_l = 0.1, ki_l = 0, kd_l = 0;
+
+//        Input          Output           SetPoint
+
+//PID l_PID(&l_ticks_rate, &l_pwm, &l_desired_rate, kp_l, ki_l, kd_l, DIRECT);
+//PID r_PID(&r_ticks_rate, &r_pwm, &r_desired_rate, kp_l, ki_l, kd_l, DIRECT);
+
 const float interval = 25; //millis
 
 void setup() {
@@ -45,11 +53,17 @@ void setup() {
     }
   }
 
+  //  l_PID.SetMode(AUTOMATIC);
+  //  l_PID.SetOutputLimits(-255, 255);
+  //
+  //  r_PID.SetMode(AUTOMATIC);
+  //  r_PID.SetOutputLimits(-255, 255);
+
 }
 
 
 void loop() {
-
+  mpu.update();
   double tstart = millis();
   read_encoder();
 
@@ -60,13 +74,13 @@ void loop() {
   get_desired_wheel_velocities();
   calc_wheel_pwm();
   set_motor_pwm();
-  
+
   delay(50);
-  
-  
+
+
   double tend = millis();
-  l_ticks_rate = (double)((left_ticks - previousReading_left)/(tend-tstart))*1000;
-  r_ticks_rate = (double)((right_ticks - previousReading_right)/(tend-tstart))*1000;
+  l_ticks_rate = (double)((left_ticks - previousReading_left) / (tend - tstart)) * 1000;
+  r_ticks_rate = (double)((right_ticks - previousReading_right) / (tend - tstart)) * 1000;
 
   previousReading_left = left_ticks;
   previousReading_right = right_ticks;
@@ -79,26 +93,34 @@ void read_encoder() {
 }
 
 void set_motor_pwm() {
-
-  if (l_pwm > 0) {
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, HIGH);
-    analogWrite(enA, int(l_pwm));
+  if (l_desired_rate != 0) {
+    if (l_pwm > 0) {
+      digitalWrite(in1, LOW);
+      digitalWrite(in2, HIGH);
+      analogWrite(enA, int(l_pwm));
+    } else {
+      digitalWrite(in1, HIGH);
+      digitalWrite(in2, LOW);
+      analogWrite(enA, int(abs(l_pwm)));
+    }
   } else {
-    digitalWrite(in1, HIGH);
-    digitalWrite(in2, LOW);
-    analogWrite(enA, int(abs(l_pwm)));
+    analogWrite(enA, 0);
   }
-
-  if (r_pwm > 0) {
-    digitalWrite(in3, LOW);
-    digitalWrite(in4, HIGH);
-    analogWrite(enB, int(r_pwm));
+  
+  if (r_desired_rate != 0) {
+    if (r_pwm > 0) {
+      digitalWrite(in3, LOW);
+      digitalWrite(in4, HIGH);
+      analogWrite(enB, int(r_pwm));
+    } else {
+      digitalWrite(in3, HIGH);
+      digitalWrite(in4, LOW);
+      analogWrite(enB, int(abs(r_pwm)));
+    }
   } else {
-    digitalWrite(in3, HIGH);
-    digitalWrite(in4, LOW);
-    analogWrite(enB, int(abs(r_pwm)));
+    analogWrite(enB, 0);
   }
+  
 }
 
 void send_all_data() {
@@ -164,38 +186,10 @@ void get_desired_wheel_velocities() {
 
 
 void calc_wheel_pwm() {
-
   l_pwm = map(l_desired_rate, -3250, 3250, -255, 255);
   r_pwm = map(r_desired_rate, -3250, 3250, -255, 255);
-
-  //  float l_err = l_desired_rate - l_ticks_rate;
-  //
-  //  if (abs(l_err) > 10) {
-  //
-  //    if (l_err > 0) {
-  //      l_pwm = l_pwm + map(l_err, -3250, 3250, -255, 255);
-  //    } else {
-  //      l_pwm = l_pwm - map(l_err, -3250, 3250, -255, 255);
-  //    }
-  //  }
-  //
-  //  float r_err = r_desired_rate - r_ticks_rate;
-  //  if (abs(r_err) > 10) {
-  //    if (l_err > 0) {
-  //      r_pwm = r_pwm + map(r_err, -3250, 3250, -255, 255);
-  //    }
-  //    else {
-  //      r_pwm = r_pwm - map(r_err, -3250, 3250, -255, 255);
-  //    }
-  //  }
-  //
-  //  if (l_desired_rate == 0) {
-  //    l_pwm = 0;
-  //  }
-  //  if (r_desired_rate == 0) {
-  //    r_pwm = 0;
-  //  }
-
+  //  l_PID.Compute();
+  //  r_PID.Compute();
 }
 
 

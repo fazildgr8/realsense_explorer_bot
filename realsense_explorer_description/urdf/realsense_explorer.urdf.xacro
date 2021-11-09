@@ -7,16 +7,14 @@
   <xacro:arg name="use_mesh" default="true" />
 
   <xacro:include filename="$(find realsense_bot)/urdf/realsense_bot.urdf.xacro" />
-  
-  <!-- <link name="base_link" />
-  <xacro:realsense_bot parent="base_link" use_nominal_extrinsics="true" add_plug="false" use_mesh="true">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </xacro:realsense_bot> -->
 
   <material name="invisible">
     <color rgba="0 0 0 0"/>
   </material>
 
+  <material name="green">
+    <color rgba="0 1 0 1"/>
+  </material>
 
 <link name="base_footprint"/>
 
@@ -105,6 +103,22 @@
   <limit effort="10000" velocity="1000"/>    
   <joint_properties damping="1.0" friction="1.0" />  
 </joint>
+
+  <link name="imu_link">
+    <visual>
+      <geometry>
+        <box size="0.015 0.026 0.001"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+<joint name="imu_joint" type="fixed">    
+  <origin rpy="0 0 0" xyz="0.114 0 0.05"/>    
+  <child link="imu_link" />    
+  <parent link="robot_base"/>    
+</joint>
+
 
 <transmission name="right_wheel_transmission">
   <type>transmission_interface/SimpleTransmission</type>

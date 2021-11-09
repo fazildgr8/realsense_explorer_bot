@@ -17,7 +17,5 @@
   <remap from="/joint_states" to="/realsense_explorer_description/joint_states" />
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
-
-
-    
+   
   </launch>
