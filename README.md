@@ -18,7 +18,7 @@
  ```
 ![robot_graph](https://user-images.githubusercontent.com/24454678/141041852-2e2d380f-32ec-4bdf-97c0-30d47c196c60.png)
 
-## The Robot's Perception Setup can be found in [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
+## The Robot's Perception Setup can be forked from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="800">
 
 ### [Updates Coming Soon on Navigation and Mapping] ###
