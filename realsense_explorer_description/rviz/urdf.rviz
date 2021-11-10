@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /TF1
         - /Imu1/Box properties1
         - /Imu1/Axes properties1
         - /Imu1/Acceleration properties1
@@ -228,7 +227,7 @@ Visualization Manager:
       Name: TF
       Show Arrows: true
       Show Axes: true
-      Show Names: true
+      Show Names: false
       Tree:
         odom:
           base_footprint:
@@ -345,10 +344,10 @@ Visualization Manager:
         Axes Length: 1
         Axes Radius: 0.10000000149011612
         Color: 255; 25; 0
-        Head Length: 0.10000000149011612
-        Head Radius: 0.10000000149011612
-        Shaft Length: 0.5
-        Shaft Radius: 0.05000000074505806
+        Head Length: 0.05000000074505806
+        Head Radius: 0.05000000074505806
+        Shaft Length: 0.30000001192092896
+        Shaft Radius: 0.029999999329447746
         Value: Arrow
       Topic: /odometry/filtered
       Unreliable: false
@@ -381,16 +380,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.0840020179748535
+      Distance: 0.9462013840675354
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.08160261809825897
-        Y: -0.03465203940868378
-        Z: 0.14139026403427124
+        X: -0.025354821234941483
+        Y: -0.05112703517079353
+        Z: 0.09105464816093445
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
