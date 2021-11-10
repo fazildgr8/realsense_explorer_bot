@@ -9,7 +9,7 @@
   <arg name="baudrate" value="115200" />
   <arg name="imu_frame" value="imu_link" />
 
-  <node name="controller" pkg="diff_drive" type="diff_drive_controller"
+  <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller"
         output="screen">
     <rosparam subst_value="true">
       ticks_per_meter: $(arg ticks_per_meter)
@@ -36,16 +36,38 @@
       baudrate: $(arg baudrate)
       imu_frame: $(arg imu_frame)
     </rosparam>
+  </node>
 
+  <!-- <node name="controller" pkg="pid" type="controller" ns="left_wheel" output="screen" >
+    <param name="Kp" value="5.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.1" />
+    <param name="upper_limit" value="255" />
+    <param name="lower_limit" value="-255" />
+    <param name="windup_limit" value="255" />
+    <param name="max_loop_frequency" value="100.0" />
+    <param name="min_loop_frequency" value="100.0" />
+    <remap from="setpoint" to="/l_wheel_setpoint" />
     </node>
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+
+
+  <node name="controller" pkg="pid" type="controller" ns="right_wheel" output="screen" >
+    <param name="Kp" value="-4.0" />
+    <param name="Ki" value="-0.0" />
+    <param name="Kd" value="-0.3" />
+    <param name="upper_limit" value="255" />
+    <param name="lower_limit" value="-255" />
+    <param name="windup_limit" value="255" />
+    <param name="max_loop_frequency" value="100.0" />
+    <param name="min_loop_frequency" value="100.0" />
+    <remap from="setpoint" to="/r_wheel_setpoint" />
+  </node> -->
+
+
+    
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="robot_ekf_localization" clear_params="true">
     <rosparam command="load" file="$(find realsense_explorer_control)/config/ekf_config.yaml" />
 
-    <!--  Placeholder for output topic remapping
-    <remap from="odometry/filtered" to=""/>
-    <remap from="accel/filtered" to=""/>
-    -->
-
-  </node>
+  </node> -->
     
   </launch>
