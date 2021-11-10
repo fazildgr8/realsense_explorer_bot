@@ -18,4 +18,4 @@
  ```
 ![robot_graph](https://user-images.githubusercontent.com/24454678/141041852-2e2d380f-32ec-4bdf-97c0-30d47c196c60.png)
 
-### [Updates Coming Soon on Navigation and Mapping Codes] ###
+### [Updates Coming Soon on Navigation and Mapping] ###
