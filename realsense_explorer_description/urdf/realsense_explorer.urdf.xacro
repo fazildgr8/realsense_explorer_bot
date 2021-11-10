@@ -6,7 +6,7 @@
   <xacro:arg name="add_plug" default="false" />
   <xacro:arg name="use_mesh" default="true" />
 
-  <xacro:include filename="$(find realsense_bot)/urdf/realsense_bot.urdf.xacro" />
+  <xacro:include filename="$(find realsense_explorer_description)/urdf/realsense_bot.urdf.xacro" />
 
   <material name="invisible">
     <color rgba="0 0 0 0"/>
@@ -15,6 +15,11 @@
   <material name="green">
     <color rgba="0 1 0 1"/>
   </material>
+
+  <material name="grey">
+    <color rgba="0.9 0.9 0.9 1"/>
+  </material>
+
 
 <link name="base_footprint"/>
 
@@ -25,6 +30,7 @@
       <geometry>
         <mesh scale="0.001 0.001 0.001" filename="package://realsense_explorer_description/meshes/robot_chassis.STL"/>
       </geometry>
+      <material name="grey"/>
     </visual>
   
       <collision>
@@ -44,7 +50,7 @@
 
   <joint name="chasis_to_rbot" type="fixed">
     <parent link="robot_base"/>
-    <child link="world"/>
+    <child link="rbot_base"/>
     <origin xyz="-0.09 0 0.13787" rpy="0 0 0"/>
   </joint>
 

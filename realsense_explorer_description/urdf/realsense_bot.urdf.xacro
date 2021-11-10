@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="realsense_bot">
+
+  <xacro:arg name="use_nominal_extrinsics" default="false"/>
+  <xacro:arg name="add_plug" default="false" />
+  <xacro:arg name="use_mesh" default="true" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  
+
+  <link name="base_link" />
+  <xacro:sensor_d435 parent="base_link" use_nominal_extrinsics="true" add_plug="false" use_mesh="true">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:sensor_d435>
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+
+  <link name="rbot_base">
+    <visual>
+      <geometry>
+        <box size="0.045 0.09 0.03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+       <material name="blue"/>
+    </visual>
+  </link>
+
+  <link name="servo_bottom">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.015"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <link name="U_Link">
+    <visual>
+      <geometry>
+        <box size="0.015 0.03 0.064"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <link name="servo_mid">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.015"/>
+      </geometry>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <link name="servo_up">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.015"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <link name="up_mount">
+    <visual>
+      <geometry>
+        <box size="0.05 0.148 0.05"/>
+      </geometry>
+      <origin rpy="0 0.785 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_Servo_B" type="fixed">
+    <parent link="rbot_base"/>
+    <child link="servo_bottom"/>
+    <origin xyz="0 0 0.04"/>
+  </joint>
+
+  <joint name="Joint_1" type="revolute">
+    <parent link="servo_bottom"/>
+    <child link="U_Link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin xyz="0 0 0.056"/>
+  </joint>
+
+  <joint name="Joint_2" type="revolute">
+    <parent link="U_Link"/>
+    <child link="servo_mid"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin xyz="0 0 0.036" rpy="0 0.67 0"/>
+  </joint>
+
+  <joint name="servo_mid_to_servo_up" type="fixed">
+    <parent link="servo_mid"/>
+    <child link="servo_up"/>
+    <origin xyz="-0.0237 -0.009 0"/>
+  </joint>
+
+  <joint name="Joint_3" type="revolute">
+    <parent link="servo_up"/>
+    <child link="up_mount"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin xyz="-0.0237 -0.009 0.04"/>
+  </joint>
+
+  <joint name="mount_to_camera" type="fixed">
+    <parent link="up_mount"/>
+    <child link="base_link"/>
+    <origin xyz="0.03 0 0.02" rpy="0 -0.785 0"/>
+  </joint>
+
+
+</robot>

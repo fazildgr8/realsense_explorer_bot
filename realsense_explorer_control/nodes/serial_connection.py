@@ -11,7 +11,7 @@ from sensor_msgs.msg import Imu
 from std_msgs.msg import Int32
 
 
-port = rospy.get_param("~port","/dev/ttyACM0")
+port = rospy.get_param("port","/dev/ttyACM0")
 baudrate = rospy.get_param("~baudrate",115200)
 imu_frame = rospy.get_param("~imu_frame",'imu_link')
 
@@ -72,7 +72,7 @@ def imu_message_publish(imu_array):
                                            0,0,0]
 
     imu_msg.orientation.x = imu_array[6]
-    imu_msg.orientation.y = imu_array[7]
+    imu_msg.orientation.y = -imu_array[7]
     imu_msg.orientation.z = imu_array[8]
     imu_msg.orientation.w = imu_array[9]
     imu_msg.orientation_covariance = [-1,0,0,
