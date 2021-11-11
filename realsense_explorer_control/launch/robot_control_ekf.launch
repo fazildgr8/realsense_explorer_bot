@@ -41,6 +41,8 @@
     </rosparam>
   </node>
 
+    <node pkg="realsense_explorer_control" type="servokit_control_zmq.py.py" 
+          name="jointState_to_servo" output="screen"/>
 
   <node pkg="realsense_explorer_control"
           type="run_servo_zmq.sh" name="zmq_servo_com"
