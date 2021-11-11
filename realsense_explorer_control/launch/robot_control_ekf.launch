@@ -33,9 +33,6 @@
     </rosparam>
   </node>
 
-<node pkg="realsense_explorer_control" type="odometry_pub" name="odometry_pub">
-</node> 
-
   <node pkg="realsense_explorer_control" type="serial_connection.py" name="serial_connection_RobotHW" output="screen">
     <rosparam subst_value="true">
       port: $(arg port)
