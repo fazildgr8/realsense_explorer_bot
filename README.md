@@ -14,7 +14,7 @@
 
 - Make sure to change the Global Fixed frame from **base_footprint** to **odomo** after launching the robot_control_ekf node mentioned below.
 
- ## Diff Drive Robot Control Node Graph with EKF Localization
+ ## Robot Control Node Graph with EKF Localization
  ```
  roslaunch realsense_explorer_control robot_control_ekf.launch
  ```
