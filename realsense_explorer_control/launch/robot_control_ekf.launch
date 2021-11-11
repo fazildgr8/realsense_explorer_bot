@@ -68,8 +68,8 @@
 
 
     
-  <node pkg="robot_localization" type="ekf_localization_node" name="robot_ekf_localization" clear_params="true">
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="robot_ekf_localization" clear_params="true">
     <rosparam command="load" file="$(find realsense_explorer_control)/config/ekf_config.yaml" />
-  </node>
+  </node> -->
     
   </launch>
