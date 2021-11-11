@@ -5,7 +5,7 @@
 - The custom built Robot uses ROS Realsense D435i RGB-D sensor with dexterity for perception and with Rviz visulaization of Robot State, Point Cloud and the generated map. 
 - The Robot uses Realtime Appearance Based Mapping (RTAB-map ROS package) for SLAM appliacation.
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, IMU - MPU9250) through custom Serial interface (not ROS Serrial). 
-
+<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
  ## Robot Representation
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
