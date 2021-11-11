@@ -11,7 +11,6 @@ kit = ServoKit(channels=16,frequency=50)
 context = zmq.Context()
 socket = context.socket(zmq.SUB)
 
-print("Collecting updates from weather server...")
 socket.connect ("tcp://localhost:%s" % port)
 
 socket.setsockopt_string(zmq.SUBSCRIBE,"")
