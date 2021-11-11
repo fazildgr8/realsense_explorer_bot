@@ -23,7 +23,7 @@
  - **/diff_drive_controller** - The differential drive inverse kinematics node which receives the /cmd_vel (Linear x vel, Angular z vel) and produces the required wheel speeds in encoder ticks per second.
  - **/odom_publisher** - The node produces odometry through reading the wheel encoders
  - **/robot_ekf_localization** - The node fuses the odometry through wheel encoders and the Robot IMU sensor data to produce EKF filtered odometry of the robot.
- - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to 3-DOF manipulator hardware controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
+ - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to PWM signals for servo motors of the 3-DOF manipulator controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
 
 ## Robot Perception
 The following launch starts the Realsense Camera and Point cloud stream
