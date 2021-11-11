@@ -41,6 +41,13 @@
     </rosparam>
   </node>
 
+
+  <node pkg="realsense_explorer_control"
+          type="run_servo_zmq.sh" name="zmq_servo_com"
+          output="screen"
+  />
+
+
   <!-- <node name="controller" pkg="pid" type="controller" ns="left_wheel" output="screen" >
     <param name="Kp" value="5.0" />
     <param name="Ki" value="0.0" />
