@@ -38,5 +38,5 @@ roslaunch realsense_camera2 rs_camera.launch filters:=pointcloud
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core.
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address.
-- The robot's movement be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.  
+- The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.  
 ### [Updates Coming Soon on Navigation and Mapping] ###
