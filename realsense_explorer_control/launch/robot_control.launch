@@ -36,6 +36,10 @@
     <param name="imu_frame" value="$(arg imu_frame)" />
   </node>
 
+    <node pkg="realsense_bot" type="servokit_control.py" 
+          name="jointState_to_servo" output="screen"/>
+
+          
   <!-- <node name="controller" pkg="pid" type="controller" ns="left_wheel" output="screen" >
     <param name="Kp" value="5.0" />
     <param name="Ki" value="0.0" />
