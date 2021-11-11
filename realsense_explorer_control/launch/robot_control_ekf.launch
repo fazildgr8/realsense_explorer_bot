@@ -2,7 +2,7 @@
   <launch>
 
   <arg name="ticks_per_meter" value="13000" />
-  <arg name="wheel_separation" value="0.02" />
+  <arg name="wheel_separation" value="0.2" />
   <arg name="base_frame_id" value="base_footprint" />
   <arg name="encoder_min" value="-65535" />
   <arg name="encoder_max" value="65535" />
@@ -68,8 +68,8 @@
 
 
     
-  <node pkg="robot_localization" type="ekf_localization_node" name="robot_ekf_localization" clear_params="true">
+  <!-- <node pkg="robot_localization" type="ekf_localization_node" name="robot_ekf_localization" clear_params="true">
     <rosparam command="load" file="$(find realsense_explorer_control)/config/ekf_config.yaml" />
-  </node>
+  </node> -->
     
   </launch>
