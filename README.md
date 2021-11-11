@@ -18,7 +18,7 @@
  ```
  roslaunch realsense_explorer_control robot_control_ekf.launch
  ```
-![robot_graph](https://user-images.githubusercontent.com/24454678/141041852-2e2d380f-32ec-4bdf-97c0-30d47c196c60.png)
+ ![control_node_graph_main](https://user-images.githubusercontent.com/24454678/141372490-8e740dd8-0715-42e8-beb0-8e0d1f50c2b9.png)
  - **/serial_connection_RobotHW** - The Hardware Interface node through serial port which communicates with the microcontroller to get the Robot IMU sensor data, two wheel encoder readings and publishes the appropriate messages to other nodes. It also sends the desired wheel rates for differential drive back to the microcontroller. (Arduino Uno Code : [realsense_explorer_bot/realsense_explorer_control/arduino/robot_diff_drive.ino](https://github.com/fazildgr8/realsense_explorer_bot/blob/main/realsense_explorer_control/arduino/robot_diff_drive.ino))
  - **/diff_drive_controller** - The differential drive inverse kinematics node which receives the /cmd_vel (Linear x vel, Angular z vel) and produces the required wheel speeds in encoder ticks per second.
  - **/odom_publisher** - The node produces odometry through reading the wheel encoders
