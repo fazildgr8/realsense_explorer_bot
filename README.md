@@ -26,6 +26,7 @@
  - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to 3-DOF manipulator hardware controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
 
 ## Robot Perception
+The following launch starts the Realsense Camera and Point cloud stream
 ```
 roslaunch realsense_camera2 rs_camera.launch filters:=pointcloud
 ```
