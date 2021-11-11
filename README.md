@@ -1,5 +1,4 @@
 # realsense_explorer_bot
-<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
 - Autonomous environment exploration  mobile robot which has 3-DOF manipulator with Intel Realsense D435i mounted on a Tracked differential drive mobile  robot fully controlled with ROS in **Jetson Nano** board. 
 - The robot is capable of mapping spaces, exploration through RRT, SLAM and 3D pose estimation/localization of objects around it. 
 - Robot produces odometry through EKF Filter (ekf_robot_localization) which fuses the IMU (MPU9250) data and the wheel encoder odometry data.
@@ -26,7 +25,13 @@
  - **/robot_ekf_localization** - The node fuses the odometry through wheel encoders and the Robot IMU sensor data to produce EKF filtered odometry of the robot.
  - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to 3-DOF manipulator hardware controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
 
-## The Robot's Perception Setup can be forked from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
+## Robot Perception
+```
+roslaunch realsense_camera2 rs_camera.launch filters:=pointcloud
+```
+<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
+
+### The Robot's Perception control Setup can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="800">
 
 ### [Updates Coming Soon on Navigation and Mapping] ###
