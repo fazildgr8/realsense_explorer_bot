@@ -33,7 +33,7 @@
     </rosparam>
   </node>
 
-  <node pkg="realsense_explorer_control" type="serial_connectionV2.py" name="serial_connection_RobotHW" output="screen">
+  <node pkg="realsense_explorer_control" type="serial_connection.py" name="serial_connection_RobotHW" output="screen">
     <rosparam subst_value="true">
       port: $(arg port)
       baudrate: $(arg baudrate)
