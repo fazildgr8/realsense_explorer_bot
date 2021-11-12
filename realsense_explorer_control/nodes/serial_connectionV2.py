@@ -72,9 +72,9 @@ def imu_message_publish(imu_array):
     imu_msg.angular_velocity_covariance = [-1,0,0,
                                            0,0,0,
                                            0,0,0]
-    roll = imu_array[6]
-    pitch = imu_array[7]
-    yaw = imu_array[8]
+    roll = math.radians(imu_array[6])
+    pitch = math.radians(imu_array[7])
+    yaw = math.radians(imu_array[8])
 
     quaternion = quaternion_from_euler(roll,-pitch,yaw)
     imu_msg.orientation.x = quaternion[0]
