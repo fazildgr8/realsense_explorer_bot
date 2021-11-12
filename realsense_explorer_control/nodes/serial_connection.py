@@ -71,7 +71,7 @@ def imu_message_publish(imu_array):
                                            0,0,0]
 
     imu_msg.orientation.x = imu_array[6]
-    imu_msg.orientation.y = imu_array[7]
+    imu_msg.orientation.y = -imu_array[7]
     imu_msg.orientation.z = imu_array[8]
     imu_msg.orientation.w = imu_array[9]
     imu_msg.orientation_covariance = [-1,0,0,
