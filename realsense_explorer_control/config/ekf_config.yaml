@@ -1,7 +1,7 @@
 # The frequency, in Hz, at which the filter will output a position estimate. Note that the filter will not begin
 # computation until it receives at least one message from one of the inputs. It will then run continuously at the
 # frequency specified here, regardless of whether it receives more measurements. Defaults to 30 if unspecified.
-frequency: 100
+frequency: 30
 
 predict_to_current_time: true
 
@@ -45,7 +45,7 @@ publish_tf: true
 publish_acceleration: false
 
 # Whether we'll allow old measurements to cause a re-publication of the updated state
-permit_corrected_publication: false
+permit_corrected_publication: true
 
 # REP-105 (http://www.ros.org/reps/rep-0105.html) specifies four principal coordinate frames: base_link, odom, map, and
 # earth. base_link is the coordinate frame that is affixed to the robot. Both odom and map are world-fixed frames.
