@@ -76,7 +76,11 @@ def imu_message_publish(imu_array):
     pitch = math.radians(imu_array[7])
     yaw = math.radians(imu_array[8])
 
-    imu_msg.orientation = quaternion_from_euler(roll,pitch,yaw)
+    quaternion = quaternion_from_euler(roll,pitch,yaw)
+    imu_msg.orientation.x = quaternion[0]
+    imu_msg.orientation.y = quaternion[1]
+    imu_msg.orientation.z = quaternion[2]
+    imu_msg.orientation.w = quaternion[3]
     imu_msg.orientation_covariance = [-1,0,0,
                                       0,0,0,
                                       0,0,0]
