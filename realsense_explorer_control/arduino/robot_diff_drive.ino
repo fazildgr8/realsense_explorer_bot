@@ -142,7 +142,7 @@ void send_all_data() {
   // Left_ticks, Right_ticks, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, QuX, QuY, QuZ, QuW
 
   String main_str = "";
-  main_str = main_str + left_ticks + "/" + right_ticks;
+  main_str = main_str + int(left_ticks) + "/" + int(-right_ticks);
 
   for (int i = 0; i < 10; i++) {
     main_str = main_str + "/" + imu_array[i];
