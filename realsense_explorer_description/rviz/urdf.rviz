@@ -31,7 +31,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: PointCloud2
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -183,6 +183,8 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
+        camera_aligned_depth_to_color_frame:
+          Value: true
         camera_bottom_screw_frame:
           Value: true
         camera_color_frame:
@@ -209,8 +211,6 @@ Visualization Manager:
           Value: true
         link_right_wheel:
           Value: true
-        odom:
-          Value: true
         rbot_base:
           Value: true
         robot_base:
@@ -229,36 +229,37 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base_footprint:
-            robot_base:
-              imu_link:
-                {}
-              link_left_wheel:
-                {}
-              link_right_wheel:
-                {}
-              rbot_base:
-                servo_bottom:
-                  U_Link:
-                    servo_mid:
-                      servo_up:
-                        up_mount:
-                          base_link:
-                            camera_bottom_screw_frame:
-                              camera_link:
-                                camera_color_frame:
-                                  camera_color_optical_frame:
-                                    {}
-                                camera_depth_frame:
-                                  camera_depth_optical_frame:
-                                    {}
-                                camera_infra1_frame:
-                                  camera_infra1_optical_frame:
-                                    {}
-                                camera_infra2_frame:
-                                  camera_infra2_optical_frame:
-                                    {}
+        base_footprint:
+          robot_base:
+            imu_link:
+              {}
+            link_left_wheel:
+              {}
+            link_right_wheel:
+              {}
+            rbot_base:
+              servo_bottom:
+                U_Link:
+                  servo_mid:
+                    servo_up:
+                      up_mount:
+                        base_link:
+                          camera_bottom_screw_frame:
+                            camera_link:
+                              camera_aligned_depth_to_color_frame:
+                                camera_color_optical_frame:
+                                  {}
+                              camera_color_frame:
+                                {}
+                              camera_depth_frame:
+                                camera_depth_optical_frame:
+                                  {}
+                              camera_infra1_frame:
+                                camera_infra1_optical_frame:
+                                  {}
+                              camera_infra2_frame:
+                                camera_infra2_optical_frame:
+                                  {}
       Update Interval: 0
       Value: true
     - Acceleration properties:
@@ -352,6 +353,34 @@ Visualization Manager:
       Topic: /odometry/filtered
       Unreliable: false
       Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /camera/depth/color/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -380,7 +409,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.9462013840675354
+      Distance: 1.8897945880889893
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -395,10 +424,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5397970080375671
+      Pitch: 0.3947969973087311
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.7453728914260864
+      Yaw: 2.515371799468994
     Saved: ~
 Window Geometry:
   Displays:

@@ -90,7 +90,7 @@ if __name__=='__main__':
     rospy.init_node('yolo_pixel_to_3Dpoint')
     rospy.Subscriber("/darknet_ros/bounding_boxes", BoundingBoxes, callback) 
     rospy.Subscriber("/darknet_ros/found_object", ObjectCount, object_count) 
-    rospy.Subscriber("/camera/aligned_depth_to_color/image_raw", Image, vis_callback) 
+    rospy.Subscriber("/camera/aligned_depth_to_color/image_raw", Image, vis_callback)
     rospy.Subscriber("/camera/color/camera_info", CameraInfo, cam_info) 
     br = tf.TransformBroadcaster()
     rate = rospy.Rate(10.0)
