@@ -75,7 +75,7 @@ class MultiObject_Tracker:
                         loc = [x,y]
                         d = self.depth_img[loc[1]][loc[0]]
                         pose = convert_depth_to_phys_coord_using_realsense(loc[0],loc[1],d,self.cam_info)
-                        pose_tf = np.array([pose[2]/1000, -pose[0]/1000, pose[1]/1000])
+                        pose_tf = np.array([pose[2]/1000, -pose[0]/1000, -pose[1]/1000])
                         print('Found: ',obj,' Pose: ',pose)
                         self.br.sendTransform((pose_tf[0],pose_tf[1],pose_tf[2]),
                                                 (0.0, 0.0, 0.0, 1.0),
@@ -103,7 +103,7 @@ def convert_depth_to_phys_coord_using_realsense(x, y, depth, cameraInfo):
 if __name__=='__main__':
     rospy.init_node('yolo_Multibody_Tracker')
     rate = rospy.Rate(10.0)
-    tracker = MultiObject_Tracker(obejcts_to_track = ['cup','bottle'])
+    tracker = MultiObject_Tracker(obejcts_to_track = ['person','cup','bottle'])
     tracker.start_subscribers()
     time.sleep(3)
     while not rospy.is_shutdown():
