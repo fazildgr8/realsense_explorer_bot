@@ -1,9 +1,11 @@
 
   <launch>
 
-  <arg name="ticks_per_meter" value="13000" />
-  <arg name="wheel_separation" value="0.025" />
+  <arg name="ticks_per_meter" value="13995" />
+  <arg name="wheel_separation" value="0.2" />
   <arg name="base_frame_id" value="base_footprint" />
+  <arg name="encoder_min" value="-65535" />
+  <arg name="encoder_max" value="65535" />
 
   <arg name="port" value="/dev/ttyACM0" />
   <arg name="baudrate" value="115200" />
@@ -26,20 +28,28 @@
       ticks_per_meter: $(arg ticks_per_meter)
       wheel_separation: $(arg wheel_separation)
       base_frame_id: $(arg base_frame_id)
+      encoder_min: $(arg encoder_min)
+      encoder_max: $(arg encoder_max)
     </rosparam>
   </node>
 
-
-  <node pkg="realsense_explorer_control" type="serial_connection.py" name="serial_connection_RobotHW" output="screen" clear_params="true">
-    <param name="port" value="$(arg port)" />
-    <param name="baudrate" value="$(arg baudrate)" />
-    <param name="imu_frame" value="$(arg imu_frame)" />
+  <node pkg="realsense_explorer_control" type="serial_connection.py" name="serial_connection_RobotHW" output="screen">
+    <rosparam subst_value="true">
+      port: $(arg port)
+      baudrate: $(arg baudrate)
+      imu_frame: $(arg imu_frame)
+    </rosparam>
   </node>
 
-    <node pkg="realsense_bot" type="servokit_control.py" 
+    <node pkg="realsense_explorer_control" type="servokit_control_zmq.py" 
           name="jointState_to_servo" output="screen"/>
 
-          
+  <node pkg="realsense_explorer_control"
+          type="run_servo_zmq.sh" name="zmq_servo_com"
+          output="screen"
+  />
+
+
   <!-- <node name="controller" pkg="pid" type="controller" ns="left_wheel" output="screen" >
     <param name="Kp" value="5.0" />
     <param name="Ki" value="0.0" />
@@ -69,7 +79,6 @@
     
   <!-- <node pkg="robot_localization" type="ekf_localization_node" name="robot_ekf_localization" clear_params="true">
     <rosparam command="load" file="$(find realsense_explorer_control)/config/ekf_config.yaml" />
-
   </node> -->
     
   </launch>

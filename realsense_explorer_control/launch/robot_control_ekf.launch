@@ -7,7 +7,7 @@
   <arg name="encoder_min" value="-65535" />
   <arg name="encoder_max" value="65535" />
 
-  <arg name="port" value="/dev/ttyACM1" />
+  <arg name="port" value="/dev/ttyACM0" />
   <arg name="baudrate" value="115200" />
   <arg name="imu_frame" value="imu_link" />
 
