@@ -9,6 +9,7 @@ import numpy as np
  
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Int32
+from tf.transformations import quaternion_from_euler
 
 port = rospy.get_param("port","/dev/ttyACM0")
 baudrate = rospy.get_param("~baudrate",115200)
@@ -70,10 +71,15 @@ def imu_message_publish(imu_array):
                                            0,0,0,
                                            0,0,0]
 
-    imu_msg.orientation.x = imu_array[6]
-    imu_msg.orientation.y = imu_array[7]
-    imu_msg.orientation.z = imu_array[8]
-    imu_msg.orientation.w = imu_array[9]
+    roll = imu_array[6]
+    pitch = imu_array[7]
+    yaw = imu_array[8]
+
+    quaternion = quaternion_from_euler(roll,pitch,yaw)
+    imu_msg.orientation.x = quaternion[0]
+    imu_msg.orientation.y = quaternion[1]
+    imu_msg.orientation.z = quaternion[2]
+    imu_msg.orientation.w = quaternion[3]
     imu_msg.orientation_covariance = [-1,0,0,
                                       0,0,0,
                                       0,0,0]
