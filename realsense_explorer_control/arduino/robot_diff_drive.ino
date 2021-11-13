@@ -52,6 +52,7 @@ void setup() {
       delay(5000);
     }
   }
+  mpu.calibrateAccelGyro();
 
   //  l_PID.SetMode(AUTOMATIC);
   //  l_PID.SetOutputLimits(-255, 255);
@@ -126,18 +127,18 @@ void set_motor_pwm() {
 void send_all_data() {
   float imu_array[10];
 
-  imu_array[0] = mpu.getAccX();
-  imu_array[1] = mpu.getAccY();
-  imu_array[2] = mpu.getAccZ();
+  imu_array[0] = mpu.getAccX()*9.81;
+  imu_array[1] = -mpu.getAccY()*9.81;
+  imu_array[2] = mpu.getAccZ()*9.81;
 
-  imu_array[3] = mpu.getGyroX();
-  imu_array[4] = mpu.getGyroY();
-  imu_array[5] = mpu.getGyroZ();
+  imu_array[3] = mpu.getGyroX()*0.0174533;
+  imu_array[4] = mpu.getGyroY()*0.0174533;
+  imu_array[5] = mpu.getGyroZ()*0.0174533;
 
-  imu_array[6] = mpu.getQuaternionX();
-  imu_array[7] = mpu.getQuaternionY();
-  imu_array[8] = mpu.getQuaternionZ();
-  imu_array[9] = mpu.getQuaternionW();
+  imu_array[6] = mpu.getEulerX()*0.0174533;
+  imu_array[7] = mpu.getEulerY()*0.0174533;
+  imu_array[8] = mpu.getEulerZ()*0.0174533;
+  imu_array[9] = 1;
 
   // Left_ticks, Right_ticks, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, QuX, QuY, QuZ, QuW
 
