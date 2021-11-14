@@ -1,6 +1,7 @@
-#include "MPU9250.h" // https://www.arduino.cc/reference/en/libraries/mpu9250/
+#include "MPU6050_light.h" // https://www.arduino.cc/reference/en/libraries/mpu6050_light/
+#include "Wire.h"
 #include <Encoder.h> // https://www.arduino.cc/reference/en/libraries/encoder/
-//#include <PID_v1.h>  // https://github.com/br3ttb/Arduino-PID-Library
+#include <PID_v1.h>  // https://github.com/br3ttb/Arduino-PID-Library
 
 // Motor Left connections
 Encoder enc_A(3, 12);
@@ -23,42 +24,43 @@ double r_ticks_rate = 0;
 double l_desired_rate = 0;
 double r_desired_rate = 0;
 
+double l_desired_rate_abs = 0;
+double r_desired_rate_abs = 0;
+
 int left_ticks = 0;
 int right_ticks = 0;
+
+int l_direction = 1;
+int r_direction = 1;
 
 int previousReading_left = 0;
 int previousReading_right = 0;
 
-MPU9250 mpu;
+MPU6050 mpu(Wire);
 
-//double kp_l = 0.1, ki_l = 0, kd_l = 0;
+double kp_l = 0.1, ki_l = 0, kd_l = 0;
 
 //        Input          Output           SetPoint
 
-//PID l_PID(&l_ticks_rate, &l_pwm, &l_desired_rate, kp_l, ki_l, kd_l, DIRECT);
-//PID r_PID(&r_ticks_rate, &r_pwm, &r_desired_rate, kp_l, ki_l, kd_l, DIRECT);
+PID l_PID(&l_ticks_rate, &l_pwm, &l_desired_rate_abs, kp_l, ki_l, kd_l, DIRECT);
+PID r_PID(&r_ticks_rate, &r_pwm, &r_desired_rate_abs, kp_l, ki_l, kd_l, DIRECT);
 
 const float interval = 25; //millis
 
 void setup() {
   Serial.begin(115200);
   Wire.begin();
+  byte status = mpu.begin();
+  while (status != 0) { }
   delay(2000);
+  mpu.calcOffsets(true, true);
   motor_stop();
 
-  if (!mpu.setup(0x68)) {  // change to your own address
-    while (1) {
-      Serial.println("MPU connection failed. Please check your connection with `connection_check` example.");
-      delay(5000);
-    }
-  }
-  mpu.calibrateAccelGyro();
+  l_PID.SetMode(AUTOMATIC);
+  l_PID.SetOutputLimits(0, 255);
 
-  //  l_PID.SetMode(AUTOMATIC);
-  //  l_PID.SetOutputLimits(-255, 255);
-  //
-  //  r_PID.SetMode(AUTOMATIC);
-  //  r_PID.SetOutputLimits(-255, 255);
+  r_PID.SetMode(AUTOMATIC);
+  r_PID.SetOutputLimits(0, 255);
 
 }
 
@@ -68,9 +70,9 @@ void loop() {
   double tstart = millis();
   read_encoder();
 
-  if (mpu.update()) {
-    send_all_data();
-  }
+
+  send_all_data();
+
 
   get_desired_wheel_velocities();
   calc_wheel_pwm();
@@ -95,7 +97,7 @@ void read_encoder() {
 
 void set_motor_pwm() {
   if (l_desired_rate != 0) {
-    if (l_pwm > 0) {
+    if (l_direction == 1) {
       digitalWrite(in1, LOW);
       digitalWrite(in2, HIGH);
       analogWrite(enA, int(l_pwm));
@@ -107,9 +109,9 @@ void set_motor_pwm() {
   } else {
     analogWrite(enA, 0);
   }
-  
+
   if (r_desired_rate != 0) {
-    if (r_pwm > 0) {
+    if (l_direction == 1) {
       digitalWrite(in3, LOW);
       digitalWrite(in4, HIGH);
       analogWrite(enB, int(r_pwm));
@@ -121,23 +123,23 @@ void set_motor_pwm() {
   } else {
     analogWrite(enB, 0);
   }
-  
+
 }
 
 void send_all_data() {
   float imu_array[10];
 
-  imu_array[0] = mpu.getAccX()*9.81;
-  imu_array[1] = -mpu.getAccY()*9.81;
-  imu_array[2] = mpu.getAccZ()*9.81;
+  imu_array[0] = mpu.getAccX() * 9.81;
+  imu_array[1] = -mpu.getAccY() * 9.81;
+  imu_array[2] = mpu.getAccZ() * 9.81;
 
-  imu_array[3] = mpu.getGyroX()*0.0174533;
-  imu_array[4] = mpu.getGyroY()*0.0174533;
-  imu_array[5] = mpu.getGyroZ()*0.0174533;
+  imu_array[3] = mpu.getGyroX() * 0.0174533;
+  imu_array[4] = mpu.getGyroY() * 0.0174533;
+  imu_array[5] = mpu.getGyroZ() * 0.0174533;
 
-  imu_array[6] = mpu.getEulerX()*0.0174533;
-  imu_array[7] = mpu.getEulerY()*0.0174533;
-  imu_array[8] = mpu.getEulerZ()*0.0174533;
+  imu_array[6] = mpu.getAngleX() * 0.0174533;
+  imu_array[7] = mpu.getAngleY() * 0.0174533;
+  imu_array[8] = mpu.getAngleZ() * 0.0174533;
   imu_array[9] = 1;
 
   // Left_ticks, Right_ticks, AccX, AccY, AccZ, GyrX, GyrY, GyrZ, QuX, QuY, QuZ, QuW
@@ -182,15 +184,29 @@ void get_desired_wheel_velocities() {
     arr = velocity_string_parse(velocities);
     l_desired_rate = arr[0];
     r_desired_rate = arr[1];
+
+    if (l_desired_rate < 0) {
+      l_direction = -1;
+    } else {
+      l_direction = 1;
+    }
+    if (l_desired_rate < 0) {
+      l_direction = -1;
+    } else {
+      l_direction = 1;
+    }
+
+    l_desired_rate_abs = abs(l_desired_rate);
+    r_desired_rate_abs = abs(r_desired_rate);
   }
 }
 
 
 void calc_wheel_pwm() {
-  l_pwm = map(l_desired_rate, -3250, 3250, -255, 255);
-  r_pwm = map(r_desired_rate, -3250, 3250, -255, 255);
-  //  l_PID.Compute();
-  //  r_PID.Compute();
+  //  l_pwm = map(l_desired_rate, -3250, 3250, -255, 255);
+  //  r_pwm = map(r_desired_rate, -3250, 3250, -255, 255);
+  l_PID.Compute();
+  r_PID.Compute();
 }
 
 
