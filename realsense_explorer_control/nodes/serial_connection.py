@@ -85,7 +85,7 @@ def imu_message_publish(imu_array):
                                       0,0,0]
 
     imu_msg.header.frame_id = imu_frame
-    # imu_msg.header.stamp = rospy.Time.from_sec(float(timestamp.strftime("%s.%f")))
+    imu_msg.header.stamp = rospy.Time.now()
 
     imu_pub = rospy.Publisher('robot_imu', Imu, queue_size=10)
     imu_pub.publish(imu_msg)

@@ -1,0 +1,31 @@
+
+  
+<launch>
+
+<arg name="localization" default="false"/>
+<arg name="rtabmap_args" value="--delete_db_on_start"/>
+
+
+<node name="imu_filter_madgwick" pkg="imu_filter_madgwick" type="imu_filter_node" args="_use_mag:=false _publish_tf:=false _world_frame=odom /imu/data_raw:=/robot_imu /imu/data:=/rtabmap/imu"/>
+
+<include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+<arg name="localization" value="$(arg localization)"/>
+<arg name="rtabmap_args" value="$(arg rtabmap_args)"/>
+
+<arg name="depth_topic" value="/camera/aligned_depth_to_color/image_raw"/>
+<arg name="rgb_topic" value="/camera/color/image_raw"/>
+<arg name="camera_info_topic" value="/camera/color/camera_info"/>
+
+<arg name="approx_sync" value="true"/>
+<arg name="frame_id" value="base_footprint"/>
+<arg name="odom_frame_id"           default="odom"/>                <!-- If set, TF is used to get odometry instead of the topic -->
+<arg name="map_frame_id"            default="map"/>
+
+<arg name="rtabmapviz"              default="false" /> 
+<arg name="rviz"                    default="false" />
+
+<arg name="visual_odometry"          default="false"/>
+<!-- <arg name="database_path" value="$(find rtabmap_ros)/maps/rtabmap.db"/> -->
+</include>
+
+</launch>

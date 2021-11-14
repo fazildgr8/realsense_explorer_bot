@@ -1,6 +1,6 @@
 <launch>
 
-    <arg name="filters"         default="pointcloud"/>
+    <arg name="filters"         default=""/>
     <arg name="align_depth"     default="true"/>
     <arg name="depth_width"     default="640"/>
     <arg name="depth_height"    default="480"/>
