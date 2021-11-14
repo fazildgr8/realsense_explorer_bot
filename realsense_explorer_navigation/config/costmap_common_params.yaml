@@ -1,0 +1,9 @@
+obstacle_range: 2.5
+raytrace_range: 3.0
+footprint: [[x0, y0], [x1, y1], ... [xn, yn]]
+#robot_radius: ir_of_robot
+inflation_radius: 0.55
+
+observation_sources: point_cloud_sensor
+
+point_cloud_sensor: {sensor_frame: camera_link, data_type: PointCloud2, topic: topic_name, marking: true, clearing: true}
