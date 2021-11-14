@@ -7,20 +7,10 @@ import tf
 from darknet_ros_msgs.msg import BoundingBoxes,ObjectCount
 from sensor_msgs.msg import Image,CameraInfo
 import numpy as np
-from rospy.numpy_msg import numpy_msg
 import time
 import pyrealsense2
 from cv_bridge import CvBridge, CvBridgeError
-import cv2
-global obj,loc,cnt,depth_img,pose,rect
 
-obj = rospy.get_param('class','bottle')
-
-rect = None
-pose = [0,0,0]
-depth_img = np.zeros((480,640))
-loc = [None,None]
-cnt = 0
 
 class MultiObject_Tracker:
     def __init__(self,obejcts_to_track):
@@ -76,7 +66,7 @@ class MultiObject_Tracker:
                         d = self.depth_img[loc[1]][loc[0]]
                         pose = convert_depth_to_phys_coord_using_realsense(loc[0],loc[1],d,self.cam_info)
                         pose_tf = np.array([pose[2]/1000, -pose[0]/1000, -pose[1]/1000])
-                        print('Found: ',obj,' Pose: ',pose)
+                        rospy.loginfo("Found: "+obj+" Pose: "+str(pose_tf))
                         self.br.sendTransform((pose_tf[0],pose_tf[1],pose_tf[2]),
                                                 (0.0, 0.0, 0.0, 1.0),
                                                 rospy.Time.now(),
@@ -101,9 +91,9 @@ def convert_depth_to_phys_coord_using_realsense(x, y, depth, cameraInfo):
 
 
 if __name__=='__main__':
-    rospy.init_node('yolo_Multibody_Tracker')
+    rospy.init_node('MultiObject_Tracker')
     rate = rospy.Rate(10.0)
-    tracker = MultiObject_Tracker(obejcts_to_track = ['person','cup','bottle'])
+    tracker = MultiObject_Tracker(obejcts_to_track = ['person','cup','bottle','chair'])
     tracker.start_subscribers()
     time.sleep(3)
     while not rospy.is_shutdown():
