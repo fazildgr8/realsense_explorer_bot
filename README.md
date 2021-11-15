@@ -40,11 +40,17 @@ https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-
 ##### The Robot's Objet Tracking method can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="800">
 
+## Robot RTAB Mapping 3D Space/ 2D Grid Map Demo
+
+
+https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-9389-505e2fbc505f.mp4
+
+
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core.
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address.
 - The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.  
-### [Updates Coming Soon on RTAB Mapping, Navigation and RRT space exploration]
+### [Updates Coming Soon on using Navigation Stack with RRT space exploration]
 - The **RRT exploration Simulation** can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
 ![RRT](https://user-images.githubusercontent.com/24454678/141375945-3afb0fb7-ff4a-4bb7-b20c-0fbf3e326033.gif)
 
