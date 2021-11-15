@@ -1,6 +1,6 @@
 
   <launch>
-    <arg name="model" default="$(find realsense_explorer_description)/urdf/realsense_explorer.urdf.xacro"/>
+
   <arg name="ticks_per_meter" value="13995" />
   <arg name="wheel_separation" value="0.2" />
   <arg name="base_frame_id" value="base_footprint" />
@@ -10,6 +10,14 @@
   <arg name="port" value="/dev/ttyACM0" />
   <arg name="baudrate" value="115200" />
   <arg name="imu_frame" value="imu_link" />
+
+  <param name="robot_description" textfile="$(find realsense_explorer_description)/urdf/realsense_explorer.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <rosparam param="source_list">["joint_states_ct"]</rosparam>
+  </node>
 
   <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller"
         output="screen">
@@ -42,22 +50,38 @@
   </node>
 
     <node pkg="realsense_explorer_control" type="servokit_control_zmq.py" 
-t
+          name="jointState_to_servo" output="screen"/>
+
   <node pkg="realsense_explorer_control"
           type="run_servo_zmq.sh" name="zmq_servo_com"
           output="screen"
   />
 
 
+  <!-- <node name="controller" pkg="pid" type="controller" ns="left_wheel" output="screen" >
+    <param name="Kp" value="5.0" />
+    <param name="Ki" value="0.0" />
+    <param name="Kd" value="0.1" />
+    <param name="upper_limit" value="255" />
+    <param name="lower_limit" value="-255" />
+    <param name="windup_limit" value="255" />
+    <param name="max_loop_frequency" value="100.0" />
+    <param name="min_loop_frequency" value="100.0" />
+    <remap from="setpoint" to="/l_wheel_setpoint" />
+    </node>
 
-  
-  <param name="robot_description" textfile="$(find realsense_explorer_description)/urdf/realsense_explorer.urdf" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
-    <rosparam param="source_list">["joint_states_ct"]</rosparam>
-  </node>
+  <node name="controller" pkg="pid" type="controller" ns="right_wheel" output="screen" >
+    <param name="Kp" value="-4.0" />
+    <param name="Ki" value="-0.0" />
+    <param name="Kd" value="-0.3" />
+    <param name="upper_limit" value="255" />
+    <param name="lower_limit" value="-255" />
+    <param name="windup_limit" value="255" />
+    <param name="max_loop_frequency" value="100.0" />
+    <param name="min_loop_frequency" value="100.0" />
+    <remap from="setpoint" to="/r_wheel_setpoint" />
+  </node> -->
 
 
     
