@@ -6,8 +6,8 @@
 - The Robot uses Realtime Appearance Based Mapping (RTAB-map ROS package) for SLAM appliacation.
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, IMU - MPU9250) through custom Serial interface (not ROS Serrial). 
 
- ## [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description)
- This packae consists of the Robot's URDF files, launch file for loading robot description, robot state and joint state publishers.
+ ## Robot Description
+ The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) packae consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
@@ -16,6 +16,7 @@
 - Make sure to change the Global Fixed frame from **base_footprint** to **odomo or map** after launching the robot_control_ekf node mentioned below.
 
  ## Robot Control Node Graph with EKF Localization
+ The [realsense_explorer_control](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_control) package consists of the nodes and launch file required to interface the robot hardware with ROS.
  ```
  roslaunch realsense_explorer_control robot_control_ekf.launch
  ```
@@ -26,10 +27,11 @@
  - **/robot_ekf_localization** - The node fuses the odometry through wheel encoders and the Robot IMU sensor data to produce EKF filtered odometry of the robot.
  - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to PWM signals for servo motors of the 3-DOF manipulator controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
 
-## Robot Perception
-The following launch starts the Realsense Camera and Point cloud stream
+## Robot 3D Perception with Multi Object Tracking
+The [realsense_explorer_perception](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_perception) package consists of all the peception related nodes/launch for 3D multi object tracking, PCL cloud stream and RTAB Mapping. 
+The following sequence of launch is to be executed for Multi Object 3D tracking.
 ```
-roslaunch realsense_camera2 rs_camera.launch filters:=pointcloud
+roslaunch realsense_explorer_perception start_rs_camera.launch filters:=pointcloud
 ```
 <img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
 
