@@ -49,7 +49,15 @@ https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="400">
 
 ## Robot RTAB Mapping 3D Space/ 2D Grid Map Demo
-
+The Robot uses Realtime Appearance Based Mapping (rtabmap_ros) for mapping 3D spaces/2D occupancy grid maps. Further RTAB Map also works in localization mode.
+- Start RTAB Map for Mapping
+```
+roslaunch realsense_explorer_perception rtab_mapping.launch
+```
+- Start RTAB Map for Localization
+```
+roslaunch realsense_explorer_perception rtab_mapping.launch localization:=true
+```
 
 https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-9389-505e2fbc505f.mp4
 
