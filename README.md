@@ -6,7 +6,7 @@
 - The Robot uses Realtime Appearance Based Mapping (RTAB-map ROS package) for SLAM appliacation.
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, IMU - MPU9250) through custom Serial interface (not ROS Serrial). 
 
- ## Robot Description
+ ## [realsense_explorer_description (https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description)
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
