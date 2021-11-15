@@ -7,12 +7,13 @@
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, IMU - MPU9250) through custom Serial interface (not ROS Serrial). 
 
  ## [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description)
+ This packae consists of the Robot's URDF files, launch file for loading robot description, robot state and joint state publishers.
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
 <img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="800">
 
-- Make sure to change the Global Fixed frame from **base_footprint** to **odomo** after launching the robot_control_ekf node mentioned below.
+- Make sure to change the Global Fixed frame from **base_footprint** to **odomo or map** after launching the robot_control_ekf node mentioned below.
 
  ## Robot Control Node Graph with EKF Localization
  ```
