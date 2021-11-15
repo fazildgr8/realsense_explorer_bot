@@ -65,12 +65,20 @@ roslaunch realsense_explorer_perception rtab_mapping.launch localization:=true
 
 https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-9389-505e2fbc505f.mp4
 
+### [Updates Coming Soon on using Navigation Stack with RRT space exploration]
+- The **RRT exploration Simulation** can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
+![RRT](https://user-images.githubusercontent.com/24454678/141375945-3afb0fb7-ff4a-4bb7-b20c-0fbf3e326033.gif)
+
+### Robot Package Dependencies
+- [Librealsense (Realsense 2 SDK)](https://github.com/IntelRealSense/librealsense) : For Jetson Devices(ARM) build and install from source with Python dependencies to support Realsense D435i camera with Jetson.
+- [IntelRealsense ROS Wrapper](https://github.com/IntelRealSense/realsense-ros)
+- [Darknet ROS (YoloV3)](https://github.com/leggedrobotics/darknet_ros)
+- [imu_tools](http://wiki.ros.org/imu_tools)
+- [robot_localization](http://wiki.ros.org/robot_localization)
+- [rtabmap_ros](http://wiki.ros.org/rtabmap_ros)
+- [OpenCV Python](https://pypi.org/project/opencv-python/)
 
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core.
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address.
 - The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.  
-### [Updates Coming Soon on using Navigation Stack with RRT space exploration]
-- The **RRT exploration Simulation** can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
-![RRT](https://user-images.githubusercontent.com/24454678/141375945-3afb0fb7-ff4a-4bb7-b20c-0fbf3e326033.gif)
-
