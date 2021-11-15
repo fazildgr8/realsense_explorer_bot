@@ -11,7 +11,7 @@
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
-<img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="800">
+<img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="600">
 
 - Make sure to change the Global Fixed frame from **base_footprint** to **odomo or map** after launching the robot_control_ekf node mentioned below.
 
@@ -33,7 +33,7 @@ The following sequence of launch is to be executed for Multi Object 3D tracking.
 ```
 roslaunch realsense_explorer_perception start_rs_camera.launch filters:=pointcloud
 ```
-<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
+<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="600">
 
 ##### The Robot's Objet Tracking method can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="800">
