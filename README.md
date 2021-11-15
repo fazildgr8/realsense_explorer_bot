@@ -35,7 +35,7 @@ roslaunch realsense_explorer_perception start_rs_camera.launch filters:=pointclo
 ```
 <img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
 
-### The Robot's Perception control Setup and RTAB-Mapping can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
+##### The Robot's Objet Tracking method can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="800">
 
 ### Notes on remote Robot Control 
