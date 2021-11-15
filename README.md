@@ -33,6 +33,8 @@ The following sequence of launch is to be executed for Multi Object 3D tracking.
 ```
 roslaunch realsense_explorer_perception start_rs_camera.launch filters:=pointcloud
 ```
+
+https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-8ef4-2a3a3966f503.mp4
 <img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="600">
 
 ##### The Robot's Objet Tracking method can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
