@@ -11,7 +11,7 @@
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
-<img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="600">
+<img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="800">
 
 - Make sure to change the Global Fixed frame from **base_footprint** to **odomo or map** after launching the robot_control_ekf node mentioned below.
 
