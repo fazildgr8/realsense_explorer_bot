@@ -30,8 +30,17 @@
 ## Robot 3D Perception with Multi Object Tracking
 The [realsense_explorer_perception](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_perception) package consists of all the peception related nodes/launch for 3D multi object tracking, PCL cloud stream and RTAB Mapping. 
 The following sequence of launch is to be executed for Multi Object 3D tracking.
+- Start RGB-D Stream from Realsense D435i
 ```
 roslaunch realsense_explorer_perception start_rs_camera.launch filters:=pointcloud
+```
+- Start YoloV3 based Object Detection over the RGB image.
+```
+roslaunch realsense_explorer_perception object_localization.launch 
+```
+- Start Multi Object Tracker node which projects detetected objects in 3D space and broadcasts to the TF tree.
+```
+rosrun realsense_explorer_perception yolo_MultiObject_track.py
 ```
 
 https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-8ef4-2a3a3966f503.mp4
