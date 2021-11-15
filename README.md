@@ -7,14 +7,16 @@
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, IMU - MPU9250) through custom Serial interface (not ROS Serrial). 
 
  ## Robot Description
+ The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) packae consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
-<img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="800">
+<img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="600">
 
-- Make sure to change the Global Fixed frame from **base_footprint** to **odomo** after launching the robot_control_ekf node mentioned below.
+- Make sure to change the Global Fixed frame from **base_footprint** to **odomo or map** after launching the robot_control_ekf node mentioned below.
 
  ## Robot Control Node Graph with EKF Localization
+ The [realsense_explorer_control](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_control) package consists of the nodes and launch file required to interface the robot hardware with ROS.
  ```
  roslaunch realsense_explorer_control robot_control_ekf.launch
  ```
@@ -25,21 +27,22 @@
  - **/robot_ekf_localization** - The node fuses the odometry through wheel encoders and the Robot IMU sensor data to produce EKF filtered odometry of the robot.
  - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to PWM signals for servo motors of the 3-DOF manipulator controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
 
-## Robot Perception
-The following launch starts the Realsense Camera and Point cloud stream
+## Robot 3D Perception with Multi Object Tracking
+The [realsense_explorer_perception](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_perception) package consists of all the peception related nodes/launch for 3D multi object tracking, PCL cloud stream and RTAB Mapping. 
+The following sequence of launch is to be executed for Multi Object 3D tracking.
 ```
-roslaunch realsense_camera2 rs_camera.launch filters:=pointcloud
+roslaunch realsense_explorer_perception start_rs_camera.launch filters:=pointcloud
 ```
-<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="800">
+<img src="https://user-images.githubusercontent.com/24454678/141373757-47f3b3ee-9df0-4290-a63b-7a7bfea64f2a.gif" width="600">
 
-### The Robot's Perception control Setup and RTAB-Mapping can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
+##### The Robot's Objet Tracking method can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="800">
 
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core.
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address.
 - The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.  
-### [Updates Coming Soon on Navigation, RTAB Mapping and RRT space exploration] ###
-- The RRT exploration Simulation can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
+### [Updates Coming Soon on RTAB Mapping, Navigation and RRT space exploration]
+- The **RRT exploration Simulation** can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
 ![RRT](https://user-images.githubusercontent.com/24454678/141375945-3afb0fb7-ff4a-4bb7-b20c-0fbf3e326033.gif)
 
