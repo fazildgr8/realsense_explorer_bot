@@ -1,7 +1,7 @@
 # realsense_explorer_bot
-![meliobject](https://user-images.githubusercontent.com/24454678/141854201-b642f205-5ee4-430f-98ff-a2146199234d.gif)
+Autonomous environment exploration  mobile robot which has 3-DOF manipulator with Intel Realsense D435i mounted on a Tracked differential drive mobile  robot fully controlled with ROS in **Jetson Nano** board. 
+![multi_application](https://user-images.githubusercontent.com/24454678/141885033-681d1d74-e2f7-454f-a772-3515d93d10ee.gif)
 <br/>
-- Autonomous environment exploration  mobile robot which has 3-DOF manipulator with Intel Realsense D435i mounted on a Tracked differential drive mobile  robot fully controlled with ROS in **Jetson Nano** board. 
 - The robot is capable of mapping spaces, exploration through RRT, SLAM and 3D pose estimation/localization of objects around it. 
 - Robot produces odometry through EKF Filter (ekf_robot_localization) which fuses the IMU (MPU6050) data and the wheel encoder odometry data.
 - The Robot uses Realsense D435i RGB-D sensor with dexterity for perception and with Rviz visulaization of Robot State, Point Cloud and the generated map. 
