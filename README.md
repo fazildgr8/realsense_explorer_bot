@@ -6,8 +6,8 @@
 - The Robot uses Realtime Appearance Based Mapping (RTAB-map ROS package) for SLAM appliacation.
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, MPU6050) through custom Serial interface (not ROS Serrial).
 - PID controller implemented withi the microcontroller to set the desired wheel speeds. 
-<img src="https://user-images.githubusercontent.com/24454678/141885033-681d1d74-e2f7-454f-a772-3515d93d10ee.gif" width="1000">
 
+![multi_application](https://user-images.githubusercontent.com/24454678/141885515-42502bfc-8d99-4ed5-bebe-5b4007305c59.gif)
 
 
  ## Robot Description
