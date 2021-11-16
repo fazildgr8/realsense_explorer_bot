@@ -94,7 +94,7 @@ https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-
 ### Robot Package Dependencies
 - [Librealsense (Realsense 2 SDK)](https://github.com/IntelRealSense/librealsense) : For Jetson Devices(ARM) build and install from source with Python dependencies to support Realsense D435i camera with Jetson.
 - [IntelRealsense ROS Wrapper](https://github.com/IntelRealSense/realsense-ros)
-- [Darknet ROS (YoloV3)](https://github.com/leggedrobotics/darknet_ros)
+- [darknet_ros (YoloV3)](https://github.com/leggedrobotics/darknet_ros)
 - [navigation](http://wiki.ros.org/navigation)
 - [imu_tools](http://wiki.ros.org/imu_tools)
 - [robot_localization](http://wiki.ros.org/robot_localization)
