@@ -83,4 +83,4 @@ https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core(Or Vice Versa).
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address (Or Vice Versa).
-- The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.
+- The robot's 3-DOF manipulator through the Joint state publisher GUI or nodes publishing Joint angles to /joint_states_ct topic.
