@@ -15,6 +15,7 @@ from cv_bridge import CvBridge, CvBridgeError
 class MultiObject_Tracker:
     def __init__(self,obejcts_to_track):
         self.objects_to_track = obejcts_to_track
+        self.camera_link = "camera_link"
         self.height=480
         self.width=640
         self.depth_img = np.zeros((self.height,self.width))
@@ -64,29 +65,29 @@ class MultiObject_Tracker:
                         y = rect[3] - (rect[3]-rect[1])/2
                         loc = [x,y]
                         d = self.depth_img[loc[1]][loc[0]]
-                        pose = convert_depth_to_phys_coord_using_realsense(loc[0],loc[1],d,self.cam_info)
+                        pose = self.convert_depth_to_phys_coord_using_realsense(loc[0],loc[1],d,self.cam_info)
                         pose_tf = np.array([pose[2]/1000, -pose[0]/1000, -pose[1]/1000])
                         rospy.loginfo("Found: "+obj+" Pose: "+str(pose_tf))
                         self.br.sendTransform((pose_tf[0],pose_tf[1],pose_tf[2]),
                                                 (0.0, 0.0, 0.0, 1.0),
                                                 rospy.Time.now(),
                                                 box.Class,
-                                                "camera_link")
+                                                self.camera_link)
 
-def convert_depth_to_phys_coord_using_realsense(x, y, depth, cameraInfo):  
-    _intrinsics = pyrealsense2.intrinsics()
-    _intrinsics.width = cameraInfo.width
-    _intrinsics.height = cameraInfo.height
-    _intrinsics.ppx = cameraInfo.K[2]
-    _intrinsics.ppy = cameraInfo.K[5]
-    _intrinsics.fx = cameraInfo.K[0]
-    _intrinsics.fy = cameraInfo.K[4]
-    #_intrinsics.model = cameraInfo.distortion_model
-    _intrinsics.model  = pyrealsense2.distortion.none
-    _intrinsics.coeffs = [i for i in cameraInfo.D]  
-    result = pyrealsense2.rs2_deproject_pixel_to_point(_intrinsics, [x, y], depth)  
-    #result[0]: right, result[1]: down, result[2]: forward
-    return result
+    def convert_depth_to_phys_coord_using_realsense(self,x, y, depth, cameraInfo):  
+        _intrinsics = pyrealsense2.intrinsics()
+        _intrinsics.width = cameraInfo.width
+        _intrinsics.height = cameraInfo.height
+        _intrinsics.ppx = cameraInfo.K[2]
+        _intrinsics.ppy = cameraInfo.K[5]
+        _intrinsics.fx = cameraInfo.K[0]
+        _intrinsics.fy = cameraInfo.K[4]
+        #_intrinsics.model = cameraInfo.distortion_model
+        _intrinsics.model  = pyrealsense2.distortion.none
+        _intrinsics.coeffs = [i for i in cameraInfo.D]  
+        result = pyrealsense2.rs2_deproject_pixel_to_point(_intrinsics, [x, y], depth)  
+        #result[0]: right, result[1]: down, result[2]: forward
+        return result
 
 
 
