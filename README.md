@@ -55,6 +55,12 @@ rosrun realsense_explorer_perception yolo_MultiObject_track.py
 
 https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-8ef4-2a3a3966f503.mp4
 
+- Add Objects to be tracked while initiating the `MultiObject_Tracker` class in [yolo_MultiObject_track.py](https://github.com/fazildgr8/realsense_explorer_bot/blob/main/realsense_explorer_perception/nodes/yolo_MultiObject_track.py) node script at Line 96.
+```
+# Example
+tracker = MultiObject_Tracker(obejcts_to_track = ['person','cup','bottle','chair'])
+```
+
 ##### The Robot's Objet Tracking method can be understod in from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
 <img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="400">
 
