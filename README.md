@@ -16,7 +16,7 @@ https://user-images.githubusercontent.com/24454678/141891883-860446a1-e5da-44ad-
 
 
  ## Robot Description
- The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) packae consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
+ The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) package consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
