@@ -2,4 +2,6 @@ global_costmap:
   global_frame: map
   robot_base_frame: robot_base
   update_frequency: 5.0
-  static_map: true
+  static_map: false
+  width: 20
+  height: 20
