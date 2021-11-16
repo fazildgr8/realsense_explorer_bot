@@ -1,4 +1,6 @@
 # realsense_explorer_bot
+![meliobject](https://user-images.githubusercontent.com/24454678/141854201-b642f205-5ee4-430f-98ff-a2146199234d.gif)
+<br/>
 - Autonomous environment exploration  mobile robot which has 3-DOF manipulator with Intel Realsense D435i mounted on a Tracked differential drive mobile  robot fully controlled with ROS in **Jetson Nano** board. 
 - The robot is capable of mapping spaces, exploration through RRT, SLAM and 3D pose estimation/localization of objects around it. 
 - Robot produces odometry through EKF Filter (ekf_robot_localization) which fuses the IMU (MPU6050) data and the wheel encoder odometry data.
@@ -8,7 +10,7 @@
 - PID controller implemented withi the microcontroller to set the desired wheel speeds. 
 
 
-![meliobject](https://user-images.githubusercontent.com/24454678/141854201-b642f205-5ee4-430f-98ff-a2146199234d.gif)
+
 
  ## Robot Description
  The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) packae consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
@@ -79,6 +81,6 @@ https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-
 - [OpenCV Python](https://pypi.org/project/opencv-python/)
 
 ### Notes on remote Robot Control 
-- The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core.
-- The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address.
-- The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.  
+- The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core(Or Vice Versa).
+- The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address (Or Vice Versa).
+- The robot's movement can be controlled by Robot steering in RQT Gui and the 3-DOF manipulator through the Joint state publisher GUI.
