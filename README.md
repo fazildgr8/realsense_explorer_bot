@@ -6,7 +6,7 @@
 - The Robot uses Realtime Appearance Based Mapping (RTAB-map ROS package) for SLAM appliacation.
 - The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, MPU6050) through custom Serial interface (not ROS Serrial).
 - PID controller implemented within the microcontroller to set the desired speeds to each motors. 
-
+**Multi Application Video**
 
 https://user-images.githubusercontent.com/24454678/141885589-cdcc4b4f-3c0e-4a10-b060-e99c5eac2660.mp4
 
@@ -48,6 +48,7 @@ roslaunch realsense_explorer_perception object_localization.launch
 ```
 rosrun realsense_explorer_perception yolo_MultiObject_track.py
 ```
+**Multi Object Tracking Demo Video**
 
 https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-8ef4-2a3a3966f503.mp4
 
@@ -64,6 +65,7 @@ roslaunch realsense_explorer_perception rtab_mapping.launch
 ```
 roslaunch realsense_explorer_perception rtab_mapping.launch localization:=true
 ```
+**RTAB Mapping Demo Video**
 
 https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-9389-505e2fbc505f.mp4
 
