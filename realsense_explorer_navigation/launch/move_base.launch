@@ -3,7 +3,7 @@
 
    <master auto="start"/>
  <!-- Run the map server --> 
-    <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/> -->
+    <node name="map_server" pkg="map_server" type="map_server" args="mymap"/>
 
  <!--- Run AMCL --> 
     <include file="$(find amcl)/examples/amcl_diff.launch" />
