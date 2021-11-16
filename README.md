@@ -87,7 +87,7 @@ roslaunch realsense_explorer_perception rtab_mapping.launch localization:=true
 
 https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-9389-505e2fbc505f.mp4
 
-### [Updates Coming Soon on using Navigation Stack with RRT space exploration]
+### [Updates Coming Soon on using Navigation Stack with RRT for autonomous exploration]
 - The **RRT exploration Simulation** can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
 ![RRT](https://user-images.githubusercontent.com/24454678/141375945-3afb0fb7-ff4a-4bb7-b20c-0fbf3e326033.gif)
 
