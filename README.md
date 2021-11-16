@@ -50,7 +50,7 @@ rosrun realsense_explorer_perception yolo_MultiObject_track.py
 https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-8ef4-2a3a3966f503.mp4
 
 ##### The Robot's Objet Tracking method can be understod from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
-<img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="400">
+<img src="https://user-images.githubusercontent.com/24454678/138940187-ebf82bbe-8ebc-4dda-8a9d-005dba85545d.png" width="200">
 
 ## Robot RTAB Mapping 3D Space/ 2D Grid Map Demo
 The Robot uses Realtime Appearance Based Mapping (rtabmap_ros) for mapping 3D spaces/2D occupancy grid maps. Further RTAB Map also works in localization mode.
