@@ -4,7 +4,7 @@
 - Robot produces odometry through EKF Filter (ekf_robot_localization) which fuses the IMU (MPU6050) data and the wheel encoder odometry data.
 - The Robot uses Realsense D435i RGB-D sensor with dexterity for perception and with Rviz visulaization of Robot State, Point Cloud and the generated map. 
 - The Robot uses Realtime Appearance Based Mapping (RTAB-map ROS package) for SLAM appliacation.
-- The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino,Motor-Conttrollers, MPU6050) through custom Serial interface (not ROS Serrial).
+- The Robot uses Jetson Nano as its main computer interfaced with the robot hardware (Arduino, Motor Controllers, MPU6050, Servo Controller) through custom Serial interface (not ROS Serrial).
 - PID controller implemented within the microcontroller to set the desired speeds to each motors.<br/> 
 
 **Multi Application Video**
