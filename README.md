@@ -67,7 +67,6 @@ if __name__=='__main__':
     time.sleep(3)
     while not rospy.is_shutdown():
         tracker.objects_tf_send()
-        # rate.sleep()
     rospy.spin()
 ```
 
