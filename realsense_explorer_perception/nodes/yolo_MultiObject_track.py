@@ -16,6 +16,8 @@ class MultiObject_Tracker:
     def __init__(self,obejcts_to_track):
         self.objects_to_track = obejcts_to_track
         self.camera_link = "camera_link"
+        self.camera_info = "/camera/color/camera_info"
+        self.depth_img_topic = "/camera/aligned_depth_to_color/image_raw"
         self.height=480
         self.width=640
         self.depth_img = np.zeros((self.height,self.width))
@@ -48,8 +50,8 @@ class MultiObject_Tracker:
     def start_subscribers(self):
         rospy.Subscriber("/darknet_ros/bounding_boxes", BoundingBoxes, self.bouding_boxes_callback) 
         rospy.Subscriber("/darknet_ros/found_object", ObjectCount, self.count_objects_callback) 
-        rospy.Subscriber("/camera/color/camera_info", CameraInfo, self.cam_info_callback) 
-        rospy.Subscriber("/camera/aligned_depth_to_color/image_raw", Image, self.depth_img_callback)
+        rospy.Subscriber(self.camera_info, CameraInfo, self.cam_info_callback) 
+        rospy.Subscriber(self.depth_img_topic, Image, self.depth_img_callback)
     
     def objects_tf_send(self):
         if self.is_objects_found == True:
