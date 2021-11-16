@@ -58,7 +58,17 @@ https://user-images.githubusercontent.com/24454678/141846545-898a943d-7062-4edb-
 - Add Objects to be tracked while initiating the `MultiObject_Tracker` class object in [yolo_MultiObject_track.py](https://github.com/fazildgr8/realsense_explorer_bot/blob/main/realsense_explorer_perception/nodes/yolo_MultiObject_track.py) node script at Line 96.
 ```
 # Example
-tracker = MultiObject_Tracker(obejcts_to_track = ['person','cup','bottle','chair'])
+if __name__=='__main__':
+    rospy.init_node('MultiObject_Tracker')
+    rate = rospy.Rate(10.0)
+    # Add your Objects
+    tracker = MultiObject_Tracker(obejcts_to_track = ['person','cup','bottle','chair'])
+    tracker.start_subscribers()
+    time.sleep(3)
+    while not rospy.is_shutdown():
+        tracker.objects_tf_send()
+        # rate.sleep()
+    rospy.spin()
 ```
 
 ##### The Robot's Objet Tracking method can be understod in from [github.com/fazildgr8/realsense_bot](https://github.com/fazildgr8/realsense_bot)
