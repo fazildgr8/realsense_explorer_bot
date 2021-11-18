@@ -14,7 +14,7 @@
     <rosparam file="$(find realsense_explorer_navigation)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find realsense_explorer_navigation)/config/global_costmap_params.yaml" command="load" /> 
     <rosparam file="$(find realsense_explorer_navigation)/config/base_local_planner_params.yaml" command="load" />
-    <remap from="/cmd_vel" telo="/robot/cmd_vel"/>
+    <remap from="/cmd_vel" to="/robot/cmd_vel"/>
  </node>
 
 </launch> 
