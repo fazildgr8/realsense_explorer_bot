@@ -4,7 +4,7 @@ footprint: [[0.15, 0.12], [0.15, -0.12],[-0.15, 0.12], [-0.15, -0.12]]
 #robot_radius: ir_of_robot
 inflation_radius: 0.55
 
-map_topic: /rtabmap/octomap_grid
+map_topic: /rtabmap/grid_map
 subscribe_to_updates: true
 
 observation_sources: point_cloud_sensor
