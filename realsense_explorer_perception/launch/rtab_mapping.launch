@@ -6,7 +6,7 @@
 <arg name="rtabmap_args" value="--delete_db_on_start"/>
 
 
-<node name="imu_filter_madgwick" pkg="imu_filter_madgwick" type="imu_filter_node" args="_use_mag:=false _publish_tf:=false _world_frame=odom /imu/data_raw:=/robot_imu /imu/data:=/rtabmap/imu"/>
+<!-- <node name="imu_filter_madgwick" pkg="imu_filter_madgwick" type="imu_filter_node" args="_use_mag:=false _publish_tf:=false _world_frame=odom /imu/data_raw:=/robot_imu /imu/data:=/rtabmap/imu"/> -->
 
 <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
 <arg name="localization" value="$(arg localization)"/>
