@@ -101,7 +101,7 @@ roslaunch realsense_explorer_navigation move_base.launch
 ### Robot Package Dependencies
 - [Librealsense (Realsense 2 SDK)](https://github.com/IntelRealSense/librealsense) : For Jetson Devices(ARM) build and install from source with Python dependencies to support Realsense D435i camera with Jetson.
 - [IntelRealsense ROS Wrapper](https://github.com/IntelRealSense/realsense-ros)
-- [darknet_ros (YoloV3)](https://github.com/leggedrobotics/darknet_ros)
+- [darknet_ros (YoloV3)](https://github.com/leggedrobotics/darknet_ros) : Follow the darknet_ros page's insttruction to install with CUDA support.
 - [navigation](http://wiki.ros.org/navigation)
 - [imu_tools](http://wiki.ros.org/imu_tools)
 - [robot_localization](http://wiki.ros.org/robot_localization)
