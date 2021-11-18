@@ -32,7 +32,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -184,9 +184,13 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        bottle:
+        camera_accel_frame:
+          Value: true
+        camera_accel_optical_frame:
           Value: true
         camera_aligned_depth_to_color_frame:
+          Value: true
+        camera_aligned_depth_to_infra1_frame:
           Value: true
         camera_bottom_screw_frame:
           Value: true
@@ -198,6 +202,10 @@ Visualization Manager:
           Value: true
         camera_depth_optical_frame:
           Value: true
+        camera_gyro_frame:
+          Value: true
+        camera_gyro_optical_frame:
+          Value: true
         camera_infra1_frame:
           Value: true
         camera_infra1_optical_frame:
@@ -208,15 +216,15 @@ Visualization Manager:
           Value: true
         camera_link:
           Value: true
-        chair:
-          Value: true
         imu_link:
           Value: true
         link_left_wheel:
           Value: true
         link_right_wheel:
           Value: true
-        person:
+        map:
+          Value: true
+        odom:
           Value: true
         rbot_base:
           Value: true
@@ -236,43 +244,47 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_footprint:
-          robot_base:
-            imu_link:
-              {}
-            link_left_wheel:
-              {}
-            link_right_wheel:
-              {}
-            rbot_base:
-              servo_bottom:
-                U_Link:
-                  servo_mid:
-                    servo_up:
-                      up_mount:
-                        base_link:
-                          camera_bottom_screw_frame:
-                            camera_link:
-                              bottle:
-                                {}
-                              camera_aligned_depth_to_color_frame:
-                                {}
-                              camera_color_frame:
-                                camera_color_optical_frame:
-                                  {}
-                              camera_depth_frame:
-                                camera_depth_optical_frame:
-                                  {}
-                              camera_infra1_frame:
-                                camera_infra1_optical_frame:
-                                  {}
-                              camera_infra2_frame:
-                                camera_infra2_optical_frame:
-                                  {}
-                              chair:
-                                {}
-                              person:
-                                {}
+        map:
+          odom:
+            base_footprint:
+              robot_base:
+                imu_link:
+                  {}
+                link_left_wheel:
+                  {}
+                link_right_wheel:
+                  {}
+                rbot_base:
+                  servo_bottom:
+                    U_Link:
+                      servo_mid:
+                        servo_up:
+                          up_mount:
+                            base_link:
+                              camera_bottom_screw_frame:
+                                camera_link:
+                                  camera_accel_frame:
+                                    camera_accel_optical_frame:
+                                      {}
+                                  camera_aligned_depth_to_color_frame:
+                                    {}
+                                  camera_aligned_depth_to_infra1_frame:
+                                    {}
+                                  camera_color_frame:
+                                    camera_color_optical_frame:
+                                      {}
+                                  camera_depth_frame:
+                                    camera_depth_optical_frame:
+                                      {}
+                                  camera_gyro_frame:
+                                    camera_gyro_optical_frame:
+                                      {}
+                                  camera_infra1_frame:
+                                    camera_infra1_optical_frame:
+                                      {}
+                                  camera_infra2_frame:
+                                    camera_infra2_optical_frame:
+                                      {}
       Update Interval: 0
       Value: true
     - Acceleration properties:
@@ -393,6 +405,64 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
+      Value: false
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: false
+      Name: Map
+      Topic: /rtabmap/grid_map
+      Unreliable: false
+      Use Timestamp: false
+      Value: false
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: false
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /move_base_simple/goal
+      Unreliable: false
+      Value: false
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: false
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic: /move_base/NavfnROS/plan
+      Unreliable: false
+      Value: false
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: false
+      Name: Map
+      Topic: /move_base/local_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
       Value: false
   Enabled: true
   Global Options:
