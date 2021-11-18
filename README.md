@@ -16,13 +16,13 @@ https://user-images.githubusercontent.com/24454678/141891883-860446a1-e5da-44ad-
 
 
  ## Robot Description
- The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) packae consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
+ The [realsense_explorer_description](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_description) package consists of the Robot's URDF files, launch file for loading robot description, Rviz config,robot state and joint state publishers for the robot.
  ```
  roslaunch realsense_explorer_description robot_bringup.launch
  ```
 <img src="https://user-images.githubusercontent.com/24454678/141372405-30a4fc64-6099-403b-8dc7-63c0af7c291f.jpg" width="800">
 
-- Make sure to change the Global Fixed frame from **base_footprint** to **odomo or map** after launching the robot_control_ekf node mentioned below.
+- Make sure to change the Global Fixed frame from **base_footprint** to **odom or map** after launching the robot_control_ekf node mentioned below.
 
  ## Robot Control Node Graph with EKF Localization
  The [realsense_explorer_control](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_control) package consists of the nodes and launch file required to interface the robot hardware with ROS.
@@ -87,7 +87,7 @@ roslaunch realsense_explorer_perception rtab_mapping.launch localization:=true
 
 https://user-images.githubusercontent.com/24454678/141847152-034f0f2c-e753-4d1a-9389-505e2fbc505f.mp4
 
-### [Updates Coming Soon on using Navigation Stack with RRT space exploration]
+### [Updates Coming Soon on using Navigation Stack with RRT for autonomous exploration]
 - The **RRT exploration Simulation** can be found in [github.com/fazildgr8/ros_autonomous_slam](https://github.com/fazildgr8/ros_autonomous_slam)
 ![RRT](https://user-images.githubusercontent.com/24454678/141375945-3afb0fb7-ff4a-4bb7-b20c-0fbf3e326033.gif)
 
