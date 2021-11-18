@@ -18,8 +18,8 @@ class MultiObject_Tracker:
         self.camera_link = "camera_link"
         self.camera_info = "/camera/color/camera_info"
         self.depth_img_topic = "/camera/aligned_depth_to_color/image_raw"
-        self.height=480
-        self.width=640
+        self.height=720
+        self.width=1280
         self.depth_img = np.zeros((self.height,self.width))
         self.br = tf.TransformBroadcaster()
         self.object_count = 0
@@ -38,6 +38,8 @@ class MultiObject_Tracker:
 
     def cam_info_callback(self,msg):
         self.cam_info = msg
+        self.height = self.cam_info.height
+        self.width = self.cam_info.width
     
     def depth_img_callback(self,msg):
         bridge = CvBridge()
