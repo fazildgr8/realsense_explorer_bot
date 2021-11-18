@@ -1,10 +1,7 @@
 global_costmap:
   global_frame: map
   robot_base_frame: robot_base
-  static_map: false
-  rolling_window: true
-  width: 10
-  height: 10
-  update_frequency: 2
-  publish_frequency: 2
+  static_map: true
+  update_frequency: 10
+  publish_frequency: 10
   transform_tolerance: 0.3
