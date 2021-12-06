@@ -108,6 +108,7 @@ roslaunch realsense_explorer_navigation move_base.launch
 - [robot_localization](http://wiki.ros.org/robot_localization)
 - [rtabmap_ros](http://wiki.ros.org/rtabmap_ros)
 - [OpenCV Python](https://pypi.org/project/opencv-python/)
+- [pyZMQ](https://pyzmq.readthedocs.io/en/latest/)
 
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core(Or Vice Versa).
