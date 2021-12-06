@@ -103,6 +103,7 @@ roslaunch realsense_explorer_navigation move_base.launch
 - [IntelRealsense ROS Wrapper](https://github.com/IntelRealSense/realsense-ros)
 - [darknet_ros (YoloV3)](https://github.com/leggedrobotics/darknet_ros) : Follow the darknet_ros page's instruction to install with CUDA support.
 - [navigation](http://wiki.ros.org/navigation)
+- [diff_drive](https://github.com/merose/diff_drive)
 - [imu_tools](http://wiki.ros.org/imu_tools)
 - [robot_localization](http://wiki.ros.org/robot_localization)
 - [rtabmap_ros](http://wiki.ros.org/rtabmap_ros)
