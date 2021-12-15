@@ -1,0 +1,11 @@
+<launch>
+
+  <node name="joy_node" pkg="joy" type="joy_node"
+        output="screen">
+  </node>
+
+<node name="joystick_control" pkg="realsense_explorer_control" type="joystick_control.py"
+        output="screen">
+  </node>
+
+</launch>
