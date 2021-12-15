@@ -109,8 +109,17 @@ roslaunch realsense_explorer_navigation move_base.launch
 - [rtabmap_ros](http://wiki.ros.org/rtabmap_ros)
 - [OpenCV Python](https://pypi.org/project/opencv-python/)
 - [pyZMQ](https://pyzmq.readthedocs.io/en/latest/)
+- [jostick_drivers](http://wiki.ros.org/joystick_drivers)
 
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core(Or Vice Versa).
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address (Or Vice Versa).
 - The robot's 3-DOF manipulator can be controlled through the Joint state publisher GUI or nodes publishing Joint angles to /joint_states_ct topic.
+- The robot can also be controlled using any Joystick supported with Linux
+##### Joystick Control (Xbox 360)
+```
+roslaunch realsense_explorer_control robot_joystick.launch
+```
+- **LSB** - Robot Movement
+- **RSB** - Look Around (Moves the Camera Around)
+- **LT and RT** - Robot Neck Movement
