@@ -11,7 +11,11 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
     valueScaled = float(value - leftMin) / float(leftSpan)
     return rightMin + (valueScaled * rightSpan)
 
+trigR_flag = False
+trigL_flag = False
+
 def callback_joy(msg):
+    global trigL_flag,trigR_flag
     min_max_linear = [-0.25,0.25]
     min_max_angular = [-1.2,1.2]
 
@@ -22,9 +26,22 @@ def callback_joy(msg):
 
     joint_states = JointState()
     joint_states.name = ['Joint_1','Joint_2','Joint_3']
+
+    joint_3 = 0
+    if axes[4]==1:
+        trigR_flag=True
+    if axes[5]==1:
+        trigL_flag=True
+
+    if trigR_flag==True and trigR_flag==True:
+        if axes[4]!=1:
+            joint_3 = translate(axes[4],-1,1,-1.54,0)
+        elif axes[5]!=1:
+            joint_3 = translate(axes[5],-1,1,1.54,0)
+
     pos = [translate(axes[2],-1,1,-1.54,1.54),
            translate(axes[3],-1,1,-1.54,1.54),
-           0]
+           joint_3]
     joint_states.position = pos
 
 
