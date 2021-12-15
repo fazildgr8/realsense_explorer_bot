@@ -35,7 +35,7 @@ https://user-images.githubusercontent.com/24454678/141891883-860446a1-e5da-44ad-
  - **/odom_publisher** - The node produces odometry through reading the wheel encoders
  - **/robot_ekf_localization** - The node fuses the odometry through wheel encoders and the Robot IMU sensor data to produce EKF filtered odometry of the robot.
  - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to PWM signals for servo motors of the 3-DOF manipulator controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
-##### Joystick Control (Xbox 360)
+##### Joystick Control (Xbox 360 Controller)
 ```
 roslaunch realsense_explorer_control robot_joystick.launch
 ```
