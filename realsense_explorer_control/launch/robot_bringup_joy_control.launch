@@ -1,0 +1,71 @@
+
+  <launch>
+
+  <arg name="ticks_per_meter" value="13995" />
+  <arg name="wheel_separation" value="0.2" />
+  <arg name="base_frame_id" value="base_footprint" />
+  <!-- <arg name="encoder_min" value="-65535" /> -->
+  <!-- <arg name="encoder_max" value="65535" /> -->
+  <arg name="encoder_min" value="-32767" />
+  <arg name="encoder_max" value="32767" />
+
+  <arg name="port" value="/dev/ttyACM0" />
+  <arg name="baudrate" value="115200" />
+  <arg name="imu_frame" value="imu_link" />
+
+  <param name="robot_description" textfile="$(find realsense_explorer_description)/urdf/realsense_explorer.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <rosparam param="source_list">["joint_states_ct"]</rosparam>
+  </node>
+
+  <node name="diff_drive_controller" pkg="diff_drive" type="diff_drive_controller"
+        output="screen">
+    <rosparam subst_value="true">
+      ticks_per_meter: $(arg ticks_per_meter)
+      wheel_separation: $(arg wheel_separation)
+      max_motor_speed: 3250
+      timeout: 1.0
+    </rosparam>
+    <remap from="cmd_vel" to="/robot/cmd_vel" />
+  </node>
+  
+  <node name="odom_publisher" pkg="diff_drive" type="diff_drive_odometry"
+        output="screen">
+    <rosparam subst_value="true">
+      ticks_per_meter: $(arg ticks_per_meter)
+      wheel_separation: $(arg wheel_separation)
+      base_frame_id: $(arg base_frame_id)
+      encoder_min: $(arg encoder_min)
+      encoder_max: $(arg encoder_max)
+    </rosparam>
+  </node>
+
+  <node pkg="realsense_explorer_control" type="serial_connection.py" name="serial_connection_RobotHW" output="screen">
+    <rosparam subst_value="true">
+      port: $(arg port)
+      baudrate: $(arg baudrate)
+      imu_frame: $(arg imu_frame)
+    </rosparam>
+  </node>
+
+    <node pkg="realsense_explorer_control" type="servokit_control_zmq.py" 
+          name="jointState_to_servo" output="screen"/>
+
+  <node pkg="realsense_explorer_control"
+          type="run_servo_zmq.sh" name="zmq_servo_com"
+          output="screen"
+  />
+
+  <node name="joy_node" pkg="joy" type="joy_node"
+        output="screen">
+  </node>
+
+<node name="joystick_control" pkg="realsense_explorer_control" type="joystick_control.py"
+        output="screen">
+  </node>
+
+    
+  </launch>
