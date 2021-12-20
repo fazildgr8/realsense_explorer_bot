@@ -35,6 +35,13 @@ https://user-images.githubusercontent.com/24454678/141891883-860446a1-e5da-44ad-
  - **/odom_publisher** - The node produces odometry through reading the wheel encoders
  - **/robot_ekf_localization** - The node fuses the odometry through wheel encoders and the Robot IMU sensor data to produce EKF filtered odometry of the robot.
  - **/jointState_to_servos** - The node which converts three servo joint position from the /joint_state_publisher to PWM signals for servo motors of the 3-DOF manipulator controlled by servo motor driver connected directly to Jetson Nano through I2C communication.
+##### Joystick Control (Xbox 360 Controller)
+```
+roslaunch realsense_explorer_control robot_joystick.launch
+```
+- **LSB** - Robot Movement
+- **RSB** - Look Around (Moves the Camera Around)
+- **LT and RT** - Robot Neck Movement
 
 ## Robot 3D Perception with Multi Object Tracking
 The [realsense_explorer_perception](https://github.com/fazildgr8/realsense_explorer_bot/tree/main/realsense_explorer_perception) package consists of all the peception related nodes/launch for 3D multi object tracking, PCL cloud stream and RTAB Mapping. 
@@ -109,8 +116,10 @@ roslaunch realsense_explorer_navigation move_base.launch
 - [rtabmap_ros](http://wiki.ros.org/rtabmap_ros)
 - [OpenCV Python](https://pypi.org/project/opencv-python/)
 - [pyZMQ](https://pyzmq.readthedocs.io/en/latest/)
+- [jostick_drivers](http://wiki.ros.org/joystick_drivers)
 
 ### Notes on remote Robot Control 
 - The robot description and the Rviz visulaization can be brought up in a master Desktop computer running a ROS core(Or Vice Versa).
 - The Robot control and Localization launch should be running in the Jetson Nano with it's ROS Master URI set to the Desktop computer's IP address (Or Vice Versa).
 - The robot's 3-DOF manipulator can be controlled through the Joint state publisher GUI or nodes publishing Joint angles to /joint_states_ct topic.
+- The robot can also be controlled using any Joystick supported with Linux
