@@ -14,12 +14,17 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 trigR_flag = False
 trigL_flag = False
 
+joy_control = False
+
+prev_state = 0
+
 def callback_joy(msg):
-    global trigL_flag,trigR_flag
+    global trigL_flag,trigR_flag, joy_control, prev_state
     min_max_linear = [-0.25,0.25]
     min_max_angular = [-1.2,1.2]
 
     axes = msg.axes
+    buttons = msg.buttons
     vel = Twist()
     vel.linear.x = translate(axes[1],-1,1,min_max_linear[0],min_max_linear[1])
     vel.angular.z = translate(axes[0],-1,1,min_max_angular[0],min_max_angular[1])
@@ -44,12 +49,23 @@ def callback_joy(msg):
            joint_3]
     joint_states.position = pos
 
+    if buttons[11]==1 and prev_state==0:
+        if joy_control==True:
+            joy_control=False
+            rospy.loginfo('Joystick Control Stoped')
+        else:
+            joy_control=True
+            rospy.loginfo('Joystick Control Started')
+    
+    prev_state = buttons[11]
 
-    vel_pub = rospy.Publisher('robot/cmd_vel', Twist, queue_size=10)
-    vel_pub.publish(vel)
+    if joy_control==True:
 
-    joint_pub = rospy.Publisher('joint_states_ct', JointState, queue_size=10)
-    joint_pub.publish(joint_states)
+        vel_pub = rospy.Publisher('robot/cmd_vel', Twist, queue_size=10)
+        vel_pub.publish(vel)
+
+        joint_pub = rospy.Publisher('joint_states_ct', JointState, queue_size=10)
+        joint_pub.publish(joint_states)
 
 if __name__ == "__main__":
     rospy.init_node('Joystick_control')
