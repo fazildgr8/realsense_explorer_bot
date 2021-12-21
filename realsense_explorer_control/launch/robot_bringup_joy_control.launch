@@ -57,11 +57,9 @@
   <node pkg="realsense_explorer_control"
           type="run_servo_zmq.sh" name="zmq_servo_com"
           output="screen"
-          launch-prefix="sudo"
   />
 
   <node name="joy_node" pkg="joy" type="joy_node"
-        launch-prefix="sudo"
         output="screen">
   </node>
 
