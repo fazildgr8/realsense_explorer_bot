@@ -52,10 +52,10 @@ def callback_joy(msg):
     if buttons[11]==1 and prev_state==0:
         if joy_control==True:
             joy_control=False
-            rospy.loginfo('Joystick Control Stoped')
+            rospy.loginfo('Joystick Control [STOPPED]')
         else:
             joy_control=True
-            rospy.loginfo('Joystick Control Started')
+            rospy.loginfo('Joystick Control [STARTED]')
     
     prev_state = buttons[11]
 
