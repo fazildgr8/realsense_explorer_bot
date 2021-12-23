@@ -55,7 +55,7 @@
           name="jointState_to_servo" output="screen"/>
 
   <node pkg="realsense_explorer_control"
-          type="run_servo_zmq.sh" name="zmq_servo_com" launch-prefix="sudo -E "
+          type="run_servo_zmq.sh" name="zmq_servo_com" launch-prefix="sudo"
           output="screen"
   />
 
