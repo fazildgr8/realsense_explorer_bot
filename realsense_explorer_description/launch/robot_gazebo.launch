@@ -1,0 +1,27 @@
+<launch>
+  <arg name="model" default="$(find realsense_explorer_description)/urdf/realsense_explorer_gazebo.urdf.xacro"/>
+  <arg name="world" default="worlds/empty.world"/>
+  <arg name="rvizconfig" default="$(find realsense_explorer_description)/rviz/urdf.rviz" />
+
+  <rosparam file="$(find realsense_explorer_description)/config/robot_control.yaml" command="load"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world)" />
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+
+  <node name="robot_spawner" pkg="gazebo_ros" type="spawn_model" 
+        args="-param robot_description -urdf -model realsense_explorer " respawn="false" output="screen" />
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/realsense_explorer" args="joint1_position_controller joint2_position_controller joint3_position_controller diff_drive_controller joint_state_controller"/>
+
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <remap from="/joint_states" to="/realsense_explorer/joint_states" />
+  </node>
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+</launch>

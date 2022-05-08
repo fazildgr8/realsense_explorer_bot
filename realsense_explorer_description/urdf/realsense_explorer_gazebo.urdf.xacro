@@ -1,0 +1,321 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="realsense_explorer">
+
+ <xacro:include filename="$(find realsense_explorer_description)/urdf/realsense_explorer.xacro" />
+
+  <xacro:arg name="use_nominal_extrinsics" default="true"/>
+  <xacro:arg name="add_plug" default="false" />
+  <xacro:arg name="use_mesh" default="true" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+
+<sensor_d435 parent="camera_mount_link">
+  <origin xyz="0 0 0" rpy="0 0 0"/>
+</sensor_d435>
+
+<!-- <joint name="mount_to_camera" type="fixed">
+  <parent link="camera_mount_link"/>
+  <child link="camera_link"/>
+  <origin xyz="0.03 0 0.02" rpy="0 -0.785 0"/>
+</joint> -->
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/realsense_explorer</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="base_link">
+      <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <gazebo reference="robot_base">
+      <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="imu_link">
+      <material>Gazebo/Green</material>
+  </gazebo>
+
+  <gazebo reference="left_wheel_link">
+      <mu1 value="1000.0"/>
+      <mu2 value="1000.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <minDepth>0.001</minDepth>
+      <material>Gazebo/BlueTransparent</material>
+  </gazebo>
+
+  <gazebo reference="right_wheel_link">
+      <mu1 value="1000.0"/>
+      <mu2 value="1000.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <minDepth>0.001</minDepth>
+      <material>Gazebo/BlueTransparent</material>
+  </gazebo>
+
+  <gazebo reference="long_u_link">
+      <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="mid_servo_link">
+      <material>Gazebo/White</material>
+  </gazebo>
+
+  <gazebo reference="camera_mount_link">
+      <material>Gazebo/White</material>
+  </gazebo>
+
+<transmission name="right_wheel_transmission">
+  <type>transmission_interface/SimpleTransmission</type>
+    
+  <joint name="right_wheel_joint">
+    <hardwareInterface>
+      hardware_interface/VelocityJointInterface
+    </hardwareInterface>      
+  </joint> 
+   
+  <actuator name="right_wheel_actuator">        
+    <mechanicalReduction>1</mechanicalReduction>    
+  </actuator> 
+ 
+</transmission>
+
+<transmission name="left_wheel_transmission">
+  <type>transmission_interface/SimpleTransmission</type>
+    
+  <joint name="left_wheel_joint">
+    <hardwareInterface>
+      hardware_interface/VelocityJointInterface
+    </hardwareInterface>      
+  </joint> 
+   
+  <actuator name="left_wheel_actuator">        
+    <mechanicalReduction>1</mechanicalReduction>    
+  </actuator> 
+ 
+</transmission>
+
+<transmission name="trans_joint_1">
+  <type>transmission_interface/SimpleTransmission</type>
+  <actuator name="motor_1">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  <joint name="long_u_joint">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+</transmission>
+
+<transmission name="trans_joint_2">
+  <type>transmission_interface/SimpleTransmission</type>
+  <actuator name="motor_2">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  <joint name="mid_link_joint">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+</transmission>
+
+<transmission name="trans_joint_3">
+  <type>transmission_interface/SimpleTransmission</type>
+  <actuator name="motor_3">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+  <joint name="camera_mount_joint">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+</transmission>
+
+ <gazebo>
+  <plugin name='differential_drive_controller'
+          filename='libgazebo_ros_diff_drive.so'>
+    <publishWheelTF>false</publishWheelTF>
+    <robotNamespace>/</robotNamespace>
+    <publishTf>1</publishTf>
+    <publishWheelJointState>false</publishWheelJointState>
+    <alwaysOn>true</alwaysOn>
+    <updateRate>100</updateRate>
+    <leftJoint>left_wheel_joint</leftJoint>
+    <rightJoint>right_wheel_joint</rightJoint>
+    <wheelSeparation>0.2</wheelSeparation>
+    <wheelDiameter>0.11</wheelDiameter>
+    <broadcastTF>1</broadcastTF>
+    <torque>5</torque>
+    <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <robotBaseFrame>base_link</robotBaseFrame>
+  </plugin>
+</gazebo>
+
+<gazebo reference="imu_link">
+  <gravity>true</gravity>
+  <sensor name="robot_imu" type="imu">
+    <always_on>true</always_on>
+    <visualize>false</visualize>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+      <topicName>robot_imu</topicName>
+      <bodyName>imu_link</bodyName>
+      <updateRateHZ>25.0</updateRateHZ>
+      <gaussianNoise>0.001</gaussianNoise>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 0 0</rpyOffset>
+      <frameName>imu_link</frameName>
+      <initialOrientationAsReference>false</initialOrientationAsReference>
+    </plugin>
+    <pose>0 0 0 0 0 0</pose>
+  </sensor>
+</gazebo>
+
+</robot>
+
+  <!-- <gazebo reference="camera_color_frame">
+    <sensor name="color" type="camera">
+      <pose frame="">0 0 0 0 0 0</pose>
+      <camera name="__default__">
+        <horizontal_fov>1.5009831567151233</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>RGB_INT8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>0</visualize>
+    </sensor>
+  </gazebo>
+  <gazebo reference="camera_infra1_frame">
+    <sensor name="ired1" type="camera">
+      <pose frame="">0 0 0 0 0 0</pose>
+      <camera name="__default__">
+        <horizontal_fov>1.5009831567151233</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>L_INT8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>0</visualize>
+    </sensor>
+  </gazebo>
+  <gazebo reference="camera_infra2_frame">
+    <sensor name="ired2" type="camera">
+      <pose frame="">0 0 0 0 0 0</pose>
+      <camera name="__default__">
+        <horizontal_fov>1.5009831567151233</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>L_INT8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>0</visualize>
+    </sensor>
+  </gazebo>
+  <gazebo reference="camera_depth_frame">
+    <sensor name="depth" type="depth">
+      <pose frame="">0 0 0 0 0 0</pose>
+      <camera name="__default__">
+        <horizontal_fov>1.5009831567151233</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <always_on>1</always_on>
+      <update_rate>30</update_rate>
+      <visualize>0</visualize>
+    </sensor>
+  </gazebo>
+  <gazebo>
+      <plugin name="camera" filename="librealsense_gazebo_plugin.so">
+        <depthUpdateRate>30</depthUpdateRate>
+        <colorUpdateRate>30</colorUpdateRate>
+        <infraredUpdateRate>30</infraredUpdateRate>
+        <depthTopicName>depth/image_raw</depthTopicName>
+        <depthCameraInfoTopicName>depth/camera_info</depthCameraInfoTopicName>
+        <colorTopicName>color/image_raw</colorTopicName>
+        <colorCameraInfoTopicName>color/camera_info</colorCameraInfoTopicName>
+        <infrared1TopicName>infrared/image_raw</infrared1TopicName>
+        <infrared1CameraInfoTopicName>infrared/camera_info</infrared1CameraInfoTopicName>
+        <infrared2TopicName>infrared2/image_raw</infrared2TopicName>
+        <infrared2CameraInfoTopicName>infrared2/camera_info</infrared2CameraInfoTopicName>
+        <colorOpticalframeName>camera_color_optical_frame</colorOpticalframeName>
+        <depthOpticalframeName>camera_depth_optical_frame</depthOpticalframeName>
+        <infrared1OpticalframeName>camera_left_ir_optical_frame</infrared1OpticalframeName>
+        <infrared2OpticalframeName>camera_right_ir_optical_frame</infrared2OpticalframeName>
+        <rangeMinDepth>0.1</rangeMinDepth>
+        <rangeMaxDepth>10</rangeMaxDepth>
+        <pointCloud>1</pointCloud>
+        <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+        <pointCloudCutoff>0.15</pointCloudCutoff>
+        <pointCloudCutoffMax>10</pointCloudCutoffMax>
+      </plugin>
+  </gazebo> -->
+
+  
+  <!-- <gazebo reference="camera_gyro_frame">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <topicName>camera/imu/data</topicName>
+        <bodyName>camera_gyro_frame</bodyName>
+        <updateRateHZ>50.0</updateRateHZ>
+        <gaussianNoise>0.001</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>camera_gyro_frame</frameName>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo> -->
+
+
+
+
+

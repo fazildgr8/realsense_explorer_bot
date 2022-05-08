@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="realsense_explorer">
+
+
+  <material name="invisible">
+    <color rgba="0 0 0 0"/>
+  </material>
+
+  <link name="base_link"/>
+  
+  <link
+    name="robot_base">
+    <inertial>
+      <origin
+        xyz="0.0247866171568915 3.22766036766343E-05 0.0646810700535961"
+        rpy="0 0 0" />
+      <mass
+        value="3.84203102747016" />
+      <inertia
+        ixx="0.00832697034159198"
+        ixy="4.47561922410032E-12"
+        ixz="0.00131003051811743"
+        iyy="0.0186966345588519"
+        iyz="-1.25426580474583E-09"
+        izz="0.021532258688866" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/robot_base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/robot_base.STL" />
+      </geometry>
+    </collision>
+  </link>
+    <joint name="base_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <parent link="base_link"/>
+        <child link="robot_base" />
+    </joint>
+  <link
+    name="left_wheel_link">
+    <inertial>
+      <origin
+        xyz="0 0 0.0235"
+        rpy="0 0 0" />
+      <mass
+        value="0.446655935524129" />
+      <inertia
+        ixx="0.000420005464704522"
+        ixy="-3.26265223399926E-52"
+        ixz="-1.06161462722539E-20"
+        iyy="0.000420005464704522"
+        iyz="1.11561924116082E-36"
+        izz="0.000675567102480245" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="invisible">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.033161 0.07075 0.054"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="robot_base" />
+    <child
+      link="left_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="right_wheel_link">
+    <inertial>
+      <origin
+        xyz="0 0 -0.0235"
+        rpy="0 0 0" />
+      <mass
+        value="0.446655935524129" />
+      <inertia
+        ixx="0.000420005464704522"
+        ixy="-3.26265223399926E-52"
+        ixz="-1.06161462722539E-20"
+        iyy="0.000420005464704522"
+        iyz="1.11561924116082E-36"
+        izz="0.000675567102480245" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/right_wheel_link.STL" />
+      </geometry>
+      <material
+        name="invisible">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.033161 -0.07075 0.054"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="robot_base" />
+    <child
+      link="right_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="long_u_link">
+    <inertial>
+      <origin
+        xyz="1.04083408558608E-17 0 0.0205440035698287"
+        rpy="0 0 0" />
+      <mass
+        value="0.0213372016014766" />
+      <inertia
+        ixx="8.87215657604868E-06"
+        ixy="-3.5968996524586E-21"
+        ixz="5.11806467439558E-21"
+        iyy="2.01646770189564E-05"
+        iyz="-1.25110558281444E-22"
+        izz="1.3390588906091E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/long_u_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.913725490196078 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/long_u_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="long_u_joint"
+    type="revolute">
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin
+      xyz="-0.0457291882084462 -0.01125 0.19927"
+      rpy="0 0 1.5707963267949" />
+    <parent
+      link="robot_base" />
+    <child
+      link="long_u_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="mid_servo_link">
+    <inertial>
+      <origin
+        xyz="0.0206950255653857 -0.00148887965651644 -0.0074191311439981"
+        rpy="0 0 0" />
+      <mass
+        value="0.0977262710445392" />
+      <inertia
+        ixx="2.5585434216447E-05"
+        ixy="-5.48531531884796E-06"
+        ixz="-3.77958554472537E-07"
+        iyy="2.46548685888374E-05"
+        iyz="3.79255142396952E-07"
+        izz="1.96412380524076E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/mid_servo_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/mid_servo_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="mid_link_joint"
+    type="revolute">
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin
+      xyz="0 0 0.05"
+      rpy="-1.5707963267949 -1.54960030838858 -1.57079632679489" />
+    <parent
+      link="long_u_link" />
+    <child
+      link="mid_servo_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="camera_mount_link">
+    <inertial>
+      <origin
+        xyz="9.06672541775219E-05 0.00853665622876829 0.0504788010831074"
+        rpy="0 0 0" />
+      <mass
+        value="0.0417767995564032" />
+      <inertia
+        ixx="7.94486504284408E-06"
+        ixy="5.605335588391E-07"
+        ixz="-2.25400365544574E-08"
+        iyy="6.07757903441138E-05"
+        iyz="-2.12981494312466E-06"
+        izz="6.05901775986386E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/camera_mount_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://realsense_explorer_description/meshes/camera_mount_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_mount_joint"
+    type="revolute">
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin
+      xyz="0.0378975953962198 -0.00642581350278899 -0.0210000000000001"
+      rpy="-1.57079632679501 -1.56018827190785 -0.791795520542192" />
+    <parent
+      link="mid_servo_link" />
+    <child
+      link="camera_mount_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <link name="imu_link">
+    <visual>
+      <geometry>
+        <box size="0.015 0.026 0.001"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+<joint name="imu_joint" type="fixed">    
+  <origin rpy="0 0 0" xyz="0.114 0 0.05"/>    
+  <child link="imu_link" />    
+  <parent link="robot_base"/>    
+</joint>
+
+</robot>
