@@ -8,16 +8,11 @@
   <xacro:arg name="add_plug" default="false" />
   <xacro:arg name="use_mesh" default="true" />
   <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  <xacro:arg name="use_nominal_extrinsics" default="true"/>
 
-<sensor_d435 parent="camera_mount_link">
-  <origin xyz="0 0 0" rpy="0 0 0"/>
-</sensor_d435>
-
-<!-- <joint name="mount_to_camera" type="fixed">
-  <parent link="camera_mount_link"/>
-  <child link="camera_link"/>
-  <origin xyz="0.03 0 0.02" rpy="0 -0.785 0"/>
-</joint> -->
+<xacro:sensor_d435 parent="camera_mount_link" use_nominal_extrinsics="$(arg use_nominal_extrinsics)">
+  <origin xyz="-0.0031452 -0.0089594 0.063032" rpy="0 -0.8002 -1.5814"/>
+</xacro:sensor_d435>
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -168,9 +163,7 @@
   </sensor>
 </gazebo>
 
-</robot>
-
-  <!-- <gazebo reference="camera_color_frame">
+  <gazebo reference="camera_color_frame">
     <sensor name="color" type="camera">
       <pose frame="">0 0 0 0 0 0</pose>
       <camera name="__default__">
@@ -269,6 +262,8 @@
       <visualize>0</visualize>
     </sensor>
   </gazebo>
+
+  
   <gazebo>
       <plugin name="camera" filename="librealsense_gazebo_plugin.so">
         <depthUpdateRate>30</depthUpdateRate>
@@ -293,10 +288,9 @@
         <pointCloudCutoff>0.15</pointCloudCutoff>
         <pointCloudCutoffMax>10</pointCloudCutoffMax>
       </plugin>
-  </gazebo> -->
+  </gazebo>
 
-  
-  <!-- <gazebo reference="camera_gyro_frame">
+  <gazebo reference="camera_gyro_frame">
     <gravity>true</gravity>
     <sensor name="imu_sensor" type="imu">
       <always_on>true</always_on>
@@ -313,7 +307,14 @@
       </plugin>
       <pose>0 0 0 0 0 0</pose>
     </sensor>
-  </gazebo> -->
+  </gazebo>
+  
+</robot>
+
+
+
+  
+
 
 
 
